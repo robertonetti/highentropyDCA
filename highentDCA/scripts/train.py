@@ -187,6 +187,7 @@ def main():
         use_wandb=args.wandb,
     )
 
+
     DCA_model.fit(
         sampler=sampler,
         fij_target=fij_target,
