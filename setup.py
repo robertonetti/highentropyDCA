@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='highentropyDCA',
+    name='highentDCA',
     version='0.6.1',
     author='Roberto Netti, Martin Weigt',
     maintainer='Roberto Netti',
@@ -10,7 +10,7 @@ setup(
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/robertonetti/highentropyDCA',
-    packages=find_packages(include=['highentropyDCA', 'highentropyDCA.*']),
+    packages=find_packages(include=['highentDCA', 'highentDCA.*']),
     include_package_data=True,
     python_requires='>=3.10',
     license_files=["LICENSE"],
@@ -21,7 +21,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'highentropyDCA=highentropyDCA.cli:main',
+            'highentDCA=highentDCA.cli:main',
         ],
     },
     install_requires=[
