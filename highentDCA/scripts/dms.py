@@ -1,5 +1,5 @@
 import argparse
-import os
+from pathlib import Path
 
 import torch
 
@@ -32,11 +32,11 @@ def main():
     dtype = get_dtype(args.dtype)
     
     # Check if the data file exists
-    if not os.path.exists(args.data):
+    if not Path(args.data).exists():
         raise FileNotFoundError(f"Data file {args.data} not found.")
     
     # Check if the parameters file exists
-    if not os.path.exists(args.path_params):
+    if not Path(args.path_params).exists():
         raise FileNotFoundError(f"Parameters file {args.path_params} not found.")
     
     # import data and parameters
@@ -80,9 +80,9 @@ def main():
     
     print("Saving the results...")
     folder = args.output
-    os.makedirs(folder, exist_ok=True)
-    fname_out = os.path.join(folder, f"{wt_name}_DMS.fasta")
-
+    folder.mkdir(parents=True, exist_ok=True)
+    fname_out = folder / Path(f"{wt_name}_DMS.fasta")
+    
     with open(fname_out, "w") as f:
         for i, res_old, res_new, e, seq in zip(site_list, old_residues, new_residues, deltaE, dms_decoded):
             f.write(f">{res_old}{i}{res_new} | DCAscore: {e:.3f}\n")

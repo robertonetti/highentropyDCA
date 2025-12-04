@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='highentDCA',
-    version='0.6.1',
+    version='0.0',
     author='Roberto Netti, Martin Weigt',
     maintainer='Roberto Netti',
     author_email='robertonetti3@gmail.com',
@@ -32,5 +32,6 @@ setup(
         'tqdm>=4.66.6',
         'wandb>=0.12.0',
         'biopython>=1.85',
+        'adabmDCA==0.5.0',
     ],
 )

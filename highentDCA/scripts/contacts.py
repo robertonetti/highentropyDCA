@@ -1,14 +1,13 @@
 import argparse
-import os
+from pathlib import Path
 import matplotlib.pyplot as plt
 
 from adabmDCA.fasta import get_tokens
 from adabmDCA.io import load_params
 from adabmDCA.utils import get_device, get_dtype
 from adabmDCA.parser import add_args_contacts
-from adabmDCA.dca import get_contact_map, get_mf_contact_map
+from adabmDCA.dca import get_contact_map
 from adabmDCA.plot import plot_contact_map
-from adabmDCA.dataset import DatasetDCA
 
 # import command-line input arguments
 def create_parser():
@@ -30,39 +29,24 @@ def main():
     device = get_device(args.device)
     dtype = get_dtype(args.dtype)
     
-    # Either the data file or the parameters file must be provided
-    if args.path_params is None and args.data is None:
-        raise ValueError("Either the data file or the parameters file must be provided.")
-    
     # Check if the parameters file exists
-    if args.path_params is not None and not os.path.exists(args.path_params):
+    if not Path(args.path_params).exists():
         raise FileNotFoundError(f"Parameters file {args.path_params} not found.")
     
     # Import parameters
     tokens = get_tokens(args.alphabet)
-    if args.path_params is None:
-        print("Using the mean-field approximation for contact prediction.")
-        dataset = DatasetDCA(
-            path_data=args.data,
-            path_weights=None,
-            alphabet=args.alphabet,
-            device=device,
-            dtype=dtype,
-        )
-        Fapc = get_mf_contact_map(dataset.data, tokens=tokens, weights=dataset.weights)
-    else:
-        print(f"Loading parameters from {args.path_params}...")
-        params = load_params(args.path_params, tokens=tokens, device=device, dtype=dtype)
-        Fapc = get_contact_map(params, tokens)
+    print(f"Loading parameters from {args.path_params}...")
+    params = load_params(args.path_params, tokens=tokens, device=device, dtype=dtype)
+    Fapc = get_contact_map(params, tokens)
     
     # Save the results
     print("Saving results...")
     if args.label is not None:
-        fname_out = os.path.join(args.output, f"{args.label}_contact_map")
+        fname_out = args.output / Path(f"{args.label}_contact_map.txt")
     else:
-        fname_out = os.path.join(args.output, "contact_map")
-
-    with open(fname_out + ".txt", "w") as f:
+        fname_out = args.output / Path(f"contact_map.txt")
+      
+    with open(fname_out, "w") as f:  
         for i in range(Fapc.shape[0]):
             for j in range(Fapc.shape[1]):
                 f.write(f"{i},{j},{Fapc[i, j]}\n")
@@ -73,7 +57,7 @@ def main():
     ax = fig.add_subplot(111)
     ax = plot_contact_map(ax, Fapc)
     fig.tight_layout()
-    fig.savefig(fname_out + ".png")
+    fig.savefig(fname_out.with_suffix(".png"))
 
     print(f"Process completed. Results saved in {fname_out}")
     

@@ -1,7 +1,7 @@
 import argparse
-import os
 import numpy as np
 import subprocess
+from pathlib import Path
 import torch
 from adabmDCA.fasta import get_tokens, write_fasta
 from adabmDCA.parser import add_args_train, add_args_reintegration
@@ -26,8 +26,8 @@ def main():
     tokens = get_tokens(args.alphabet)
     
     # Create the folder where to save the model
-    folder = args.output
-    os.makedirs(folder, exist_ok=True)
+    folder = Path(args.output)
+    folder.mkdir(parents=True, exist_ok=True)
     
     dataset_nat = DatasetDCA(
         path_data=args.data,
@@ -35,8 +35,6 @@ def main():
         alphabet=args.alphabet,
         clustering_th=args.clustering_seqid,
         no_reweighting=args.no_reweighting,
-        filter_sequences=True,
-        remove_duplicates=True,
         device=device,
         dtype=dtype,
         message=False,
@@ -46,43 +44,33 @@ def main():
         path_data=args.reint,
         alphabet=args.alphabet,
         no_reweighting=True,
-        filter_sequences=False,
-        remove_duplicates=False,
         device=device,
         dtype=dtype,
         message=False,
     )
-
-    # Concatenate the two datasets
+    
+    # concatenate the two datasets
     msa = torch.cat((dataset_nat.data, dataset_reint.data), dim=0)
     msa_names = np.append(dataset_nat.names, dataset_reint.names)
-    
+    k = (args.lambda_ * dataset_nat.get_effective_size()) / len(dataset_reint)
     # Import the adjustment vector
     with open(args.adj, "r") as f:
         adjust = torch.tensor([float(x) for x in f.read().split()], device=device, dtype=dtype)
-    if args.lambda_ is None:
-        span_adjust = torch.abs(adjust).max()
-        lambda_ = 1 / span_adjust
-        print(f"No lambda value provided. Using lambda = {lambda_:.4f} (1 / max(|adjustment vector|))")
-    else:
-        lambda_ = args.lambda_
-    # Compute the scaling factor k
-    k = (lambda_ * dataset_nat.get_effective_size()) / len(dataset_reint)
-    
-    # Concatenate the weights
+    # Conncatenate the weights
     weights = torch.cat((dataset_nat.weights.view(-1), k * adjust), dim=0).unsqueeze(1)
     
     # Save the new dataset
     args.label = f"{args.label}-lambda_{args.lambda_}" if args.label is not None else f"lambda_{args.lambda_}"
-    path_msa = os.path.join(folder, f"{args.label}_msa.fasta")
+    path_msa = folder / Path(f"{args.label}_msa.fasta")
     write_fasta(
         fname=path_msa,
         headers=msa_names,
-        sequences=msa,
+        sequences=msa.cpu().numpy(),
+        numeric_input=True,
         remove_gaps=False,
         tokens=tokens,
     )
-    path_weights = os.path.join(folder, f"{args.label}_weights.dat")
+    path_weights = folder / Path(f"{args.label}_weights.dat")
     np.savetxt(path_weights, weights.cpu().numpy())
     
     # launch the training
@@ -103,19 +91,15 @@ def main():
         "--nchains", str(args.nchains),
         "--target", str(args.target),
         "--nepochs", str(args.nepochs),
+        "--pseudocount", str(0),
         "--seed", str(args.seed),
+        "--checkpoints", str(args.checkpoints),
+        "--target_acc_rate", str(args.target_acc_rate),
         "--gsteps", str(args.gsteps),
         "--factivate", str(args.factivate),
         "--density", str(args.density),
         "--drate", str(args.drate),
     ]
-    if args.pseudocount is None:
-        pseudocount_default = 1e-6
-        train_command.append("--pseudocount")
-        train_command.append(str(pseudocount_default))
-    else:
-        train_command.append("--pseudocount")
-        train_command.append(str(args.pseudocount))
     if args.no_reweighting:
         train_command.append("--no_reweighting")
     if args.wandb:

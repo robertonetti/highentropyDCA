@@ -21,29 +21,23 @@ def _compute_energy_sequence(
 
 
 def compute_energy(
-    x: torch.Tensor,
+    X: torch.Tensor,
     params: Dict[str, torch.Tensor],
 ) -> torch.Tensor:
-    """
-    Compute energy for a batch of sequences.
+    """Compute the DCA energy of the sequences in X.
     
     Args:
-        x (torch.Tensor): Tensor of shape (batch_size, L, q) - batch of one-hot encoded sequences
+        X (torch.Tensor): Sequences in one-hot encoding format.
         params (Dict[str, torch.Tensor]): Parameters of the model.
     
     Returns:
-        Tensor of shape (batch_size,) - energy for each sequence
+        torch.Tensor: DCA Energy of the sequences.
     """
-    L, q = params["bias"].shape
-    batch_size = x.shape[0]
-    x_flat = x.view(batch_size, -1)
-    bias_flat = params["bias"].view(-1)
-    couplings_flat = params["coupling_matrix"].view(L * q, L * q)
-    bias_term = x_flat @ bias_flat
-    coupling_term = torch.sum(x_flat * (x_flat @ couplings_flat), dim=1)
-    energy = -bias_term - 0.5 * coupling_term
     
-    return energy
+    if X.dim() != 3:
+        raise ValueError("Input tensor X must be 3-dimensional of size (_, L, q)")
+    
+    return torch.vmap(_compute_energy_sequence, in_dims=(0, None))(X, params)
 
 
 def _update_weights_AIS(
@@ -222,9 +216,9 @@ def _tap_residue(
     mf_term = bias_residue + mag.view(N, L * q) @ coupling_residue.view(q, L * q).T
     reaction_term_temp = (
         0.5 * coupling_residue.view(1, q, L, q) + # (1, q, L, q)
-        (torch.einsum("nd,djc,njc->nj", mag_i, coupling_residue, mag)).view(N, 1, L, 1) - # nd,djc,njc->nj
-        0.5 * torch.einsum("njc,ajc->naj", mag, coupling_residue).view(N, q, L, 1) -      # njc,ajc->naj
-        torch.einsum("nd,djb->njb", mag_i, coupling_residue).view(N, 1, L, q)             # nd,djb->njb
+        (torch.tensordot(mag_i, coupling_residue, dims=[[1], [0]]) * mag).sum(dim=2).view(N, 1, L, 1) - # nd,djc,njc->nj
+        0.5 * torch.einsum("njc,ajc->naj", mag, coupling_residue).view(N, q, L, 1) -                    # njc,ajc->naj
+        torch.tensordot(mag_i, coupling_residue, dims=[[1], [0]]).view(N, 1, L, q)                      # nd,djb->njb
     )
     reaction_term = (
         (reaction_term_temp * coupling_residue.view(1, q, L, q)) * mag.view(N, 1, L, q)

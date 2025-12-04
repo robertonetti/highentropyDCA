@@ -1,8 +1,9 @@
+from pathlib import Path
 import importlib
-import os
 import argparse
 import numpy as np
 import torch
+import adabmDCA 
 
 from adabmDCA.dataset import DatasetDCA
 from adabmDCA.fasta import get_tokens
@@ -11,7 +12,8 @@ from adabmDCA.stats import get_freq_single_point, get_freq_two_points
 from adabmDCA.utils import init_chains, init_parameters, get_device, get_dtype
 from adabmDCA.parser import add_args_train
 from adabmDCA.sampling import get_sampler
-from adabmDCA.checkpoint import Checkpoint
+from adabmDCA.functional import one_hot
+from adabmDCA.checkpoint import get_checkpoint
 
 
 # import command-line input arguments
@@ -48,29 +50,29 @@ def main():
     print("\n")
     
     # Check if the data file exist
-    if not os.path.exists(args.data):
+    if not Path(args.data).exists():
         raise FileNotFoundError(f"Data file {args.data} not found.")
     
     if args.test is not None:
-        if not os.path.exists(args.test):
+        if not Path(args.test).exists():
             raise FileNotFoundError(f"Test file {args.test} not found.")
     
     # Create the folder where to save the model
-    folder = args.output
-    os.makedirs(folder, exist_ok=True)
-
+    folder = Path(args.output)
+    folder.mkdir(parents=True, exist_ok=True)
+    
     if args.label is not None:
         file_paths = {
-            "log" : os.path.join(folder, f"{args.label}.log"),
-            "params" : os.path.join(folder, f"{args.label}_params.dat"),
-            "chains" : os.path.join(folder, f"{args.label}_chains.fasta")
+            "log" : folder / Path(f"{args.label}.log"),
+            "params" : folder / Path(f"{args.label}_params.dat"),
+            "chains" : folder / Path(f"{args.label}_chains.fasta")
         }
         
     else:
         file_paths = {
-            "log" : os.path.join(folder, f"adabmDCA.log"),
-            "params" : os.path.join(folder, f"params.dat"),
-            "chains" : os.path.join(folder, f"chains.fasta")
+            "log" : folder / Path(f"adabmDCA.log"),
+            "params" : folder / Path(f"params.dat"),
+            "chains" : folder / Path(f"chains.fasta")
         }
     
     # Import dataset
@@ -97,9 +99,10 @@ def main():
             device=device,
             dtype=dtype,
         )
+        test_oh = one_hot(test_dataset.data, num_classes=dataset.get_num_states()).to(dtype)
         pseudocount_test = 1. / test_dataset.get_effective_size()
-        fi_test = get_freq_single_point(data=test_dataset.data, weights=test_dataset.weights, pseudo_count=pseudocount_test)
-        fij_test = get_freq_two_points(data=test_dataset.data, weights=test_dataset.weights, pseudo_count=pseudocount_test)
+        fi_test = get_freq_single_point(data=test_oh, weights=test_dataset.weights, pseudo_count=pseudocount_test)
+        fij_test = get_freq_two_points(data=test_oh, weights=test_dataset.weights, pseudo_count=pseudocount_test)
     else:
         fi_test = None
         fij_test = None
@@ -110,9 +113,9 @@ def main():
     # Save the weights if not already provided
     if args.weights is None:
         if args.label is not None:
-            path_weights = os.path.join(folder, f"{args.label}_weights.dat")
+            path_weights = folder / f"{args.label}_weights.dat"
         else:
-            path_weights = os.path.join(folder, "weights.dat")
+            path_weights = folder / "weights.dat"
         np.savetxt(path_weights, dataset.weights.cpu().numpy())
         print(f"Weights saved in {path_weights}")
         
@@ -129,9 +132,11 @@ def main():
     if args.pseudocount is None:
         args.pseudocount = 1. / dataset.get_effective_size()
         print(f"Pseudocount automatically set to {args.pseudocount}.")
-    fi_target = get_freq_single_point(data=dataset.data, weights=dataset.weights, pseudo_count=args.pseudocount)
-    fij_target = get_freq_two_points(data=dataset.data, weights=dataset.weights, pseudo_count=args.pseudocount)
-
+        
+    data_oh = one_hot(dataset.data, num_classes=q).to(dtype)
+    fi_target = get_freq_single_point(data=data_oh, weights=dataset.weights, pseudo_count=args.pseudocount)
+    fij_target = get_freq_two_points(data=data_oh, weights=dataset.weights, pseudo_count=args.pseudocount) 
+    
     # Initialize parameters and chains
     if args.path_params:
         print("Loading parameters...")
@@ -152,7 +157,11 @@ def main():
     
     if args.path_chains:
         print("Loading chains...")
-        chains, log_weights = load_chains(fname=args.path_chains, tokens=dataset.tokens, load_weights=True, device=device, dtype=dtype)
+        chains, log_weights = load_chains(fname=args.path_chains, tokens=dataset.tokens, load_weights=True)
+        chains = one_hot(
+            torch.tensor(chains, device=device),
+            num_classes=q,
+        ).to(dtype)
         log_weights = torch.tensor(log_weights, device=device, dtype=dtype)
         args.nchains = chains.shape[0]
         print(f"Loaded {args.nchains} chains.")
@@ -163,15 +172,18 @@ def main():
         log_weights = torch.zeros(size=(args.nchains,), device=device, dtype=dtype)
         
     # Select the sampling function
-    sampler = torch.jit.script(get_sampler(args.sampler))
+    sampler = get_sampler(args.sampler)
+    
     print("\n")
     
-    checkpoint = Checkpoint(
+    checkpoint = get_checkpoint(args.checkpoints)(
         file_paths=file_paths,
         tokens=tokens,
-        args=vars(args),
+        args=args,
         params=params,
         chains=chains,
+        max_epochs=args.nepochs,
+        target_acc_rate=args.target_acc_rate,
         use_wandb=args.wandb,
     )
 
