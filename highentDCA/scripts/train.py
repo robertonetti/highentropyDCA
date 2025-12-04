@@ -70,7 +70,7 @@ def main():
         
     else:
         file_paths = {
-            "log" : folder / Path(f"adabmDCA.log"),
+            "log" : folder / Path(f"highentDCA.log"),
             "params" : folder / Path(f"params.dat"),
             "chains" : folder / Path(f"chains.fasta")
         }
@@ -107,7 +107,7 @@ def main():
         fi_test = None
         fij_test = None
     
-    DCA_model = importlib.import_module(f"adabmDCA.models.{args.model}")
+    DCA_model = importlib.import_module(f"highentDCA.models.{args.model}")
     tokens = get_tokens(args.alphabet)
     
     # Save the weights if not already provided
@@ -208,6 +208,7 @@ def main():
         drate=args.drate,
         target_density=args.density,
         checkpoint=checkpoint,
+        args=args,
     )
     
     

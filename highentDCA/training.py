@@ -208,7 +208,11 @@ def train_graph(
                 log_likelihood_test = compute_log_likelihood(fi=fi_test, fij=fij_test, params=params, logZ=logZ)
             else:
                 log_likelihood_test = float("nan")
-            checkpoint.log(
+            
+            
+            # Save the model if a checkpoint is reached
+            if checkpoint.check(epochs, params, chains):
+                checkpoint.log(
                 {
                     "Epochs": epochs,
                     "Pearson": pearson,
@@ -220,10 +224,7 @@ def train_graph(
                     "Density": 1.0,
                     "Time": time.time() - time_start,
                 }
-            )
-            
-            # Save the model if a checkpoint is reached
-            if checkpoint.check(epochs, params, chains):
+                )
                 checkpoint.save(
                     params=params,
                     mask=mask_save,
