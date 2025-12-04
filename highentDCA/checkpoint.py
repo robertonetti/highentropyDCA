@@ -334,8 +334,8 @@ class DecCheckpoint(Checkpoint):
             x, y, N = 0.99, target_density, n_steps
             ratio = (y / x) ** (1 / (N - 1))
             self.checkpt_steps = [x * (ratio ** i) for i in range(N)]
-            # round to 3 decimal places
-            self.checkpt_steps = [round(step, 3) for step in self.checkpt_steps]
+            # round to 2 decimal places
+            self.checkpt_steps = [round(step, 2) for step in self.checkpt_steps]
         else:
             self.checkpt_steps = sorted(checkpt_steps, reverse=True)  # Ensure descending order
 

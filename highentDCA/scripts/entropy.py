@@ -118,20 +118,21 @@ def compute_entropy(
     
     chains_theta = init_chains(nchains, L, q, device=device, dtype=dtype)
     chains_theta = sampler(chains_theta, params_theta, nsweeps_theta)
-    seqID_max = get_seqid(chains_theta, targetseq)
+    seqID = get_seqid(chains_theta, targetseq)
             
     # Find theta_max to generate 10% target sequences in the sample
     print("Finding theta_max to generate 10% target sequences in the sample...")
-    p_wt =  (seqID_max == L).sum().item() / nchains
+    p_wt =  (seqID == L).sum().item() / nchains
     nsweep_find_theta = 100
     while p_wt <= 0.1:
         theta_max += 0.01 * theta_max
-        print(f"{(p_wt * 100):.2f}% sequences collapse to WT")
-        print(f"Number of sequences collapsed to WT is less than 10%. Increasing theta max to: {theta_max:.2f}...")
+        # print(f"{(p_wt * 100):.2f}% sequences collapse to WT")
+        # print(f"Number of sequences collapsed to WT is less than 10%. Increasing theta max to: {theta_max:.2f}...")
         params_theta["bias"] = params["bias"] + theta_max * targetseq
         chains_theta = sampler(chains_theta, params_theta, nsweep_find_theta)
         seqID = get_seqid(chains_theta, targetseq)
         p_wt = (seqID == L).sum().item() / nchains
+    print(f"Found theta_max: {theta_max:.2f} with {(p_wt * 100):.2f}% sequences collapsed to WT.")
     
     # initiaize Thermodynamic Integration
     print("Thermodynamic Integration...")

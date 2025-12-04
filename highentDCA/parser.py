@@ -13,7 +13,7 @@ def add_args_dca(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     dca_args.add_argument("-l", "--label",        type=str,   default=None,         help="(Defaults to None). If provoded, adds a label to the output files inside the output folder.")
     dca_args.add_argument("--alphabet",           type=str,   default="protein",    help="(Defaults to protein). Type of encoding for the sequences. Choose among ['protein', 'rna', 'dna'] or a user-defined string of tokens.")
     dca_args.add_argument("--lr",                 type=float, default=0.01,         help="(Defaults to 0.01). Learning rate.")
-    dca_args.add_argument("--nsweeps",            type=int,   default=50,           help="(Defaults to 50). Number of sweeps for each gradient estimation.")
+    dca_args.add_argument("--nsweeps",            type=int,   default=100,           help="(Defaults to 50). Number of sweeps for each gradient estimation.")
     dca_args.add_argument("--sampler",            type=str,   default="gibbs",      help="(Defaults to gibbs). Sampling method to be used.", choices=["metropolis", "gibbs"])
     dca_args.add_argument("--nchains",            type=int,   default=10000,        help="(Defaults to 10000). Number of Markov chains to run in parallel.")
     dca_args.add_argument("--target",             type=float, default=0.95,         help="(Defaults to 0.95). Pearson correlation coefficient on the two-sites statistics to be reached.")
