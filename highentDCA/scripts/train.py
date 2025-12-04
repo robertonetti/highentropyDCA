@@ -70,7 +70,7 @@ def main():
         
     else:
         file_paths = {
-            "log" : folder / Path(f"highentDCA.log"),
+            "log" : folder / Path(f"adabmDCA.log"),
             "params" : folder / Path(f"params.dat"),
             "chains" : folder / Path(f"chains.fasta")
         }
