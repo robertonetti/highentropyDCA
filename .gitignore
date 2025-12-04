@@ -162,6 +162,7 @@ cython_debug/
 #.idea/
 
 example_models/
+example_data/
 doc/_build
 notebooks/
 Pipfile
@@ -169,3 +170,4 @@ Pipfile.lock
 wandb/
 models/
 DCA_model/
+run.sh
