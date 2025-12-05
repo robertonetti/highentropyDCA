@@ -1,24 +1,21 @@
 # Welcome to highentDCA Documentation
 
-**highentDCA** is a Python package for training entropy-decimated Direct Coupling Analysis (edDCA) models on biological sequence data. This package extends the `adabmDCA` framework to enable efficient training of sparse Potts models while tracking their entropy evolution during the decimation process.
+**highentDCA** is a Python package for training decimation Direct Coupling Analysis (edDCA) models on biological sequence data. This package extends the `adabmDCA` framework to enable efficient training of sparse Potts models while tracking their entropy evolution during the decimation process.
 
 !!! info "About this Documentation"
     This documentation provides a comprehensive guide to using highentDCA for training sparse DCA models with entropy tracking. It complements the [adabmDCA documentation](https://spqb.github.io/adabmDCApy/) and focuses specifically on the entropy decimation features.
 
 ## What is highentDCA?
 
-highentDCA implements the **entropy-decimation DCA** algorithm, which systematically reduces a fully-connected Potts model to a sparse network by iteratively pruning weak couplings, identifying the optimal sparsity level that maximizes model entropy while preserving predictive accuracy. This approach is particularly useful for:
+highentDCA implements an algorithm, which systematically reduces a fully-connected Potts model to a sparse network by iteratively pruning weak couplings, identifying the optimal sparsity level that maximizes model entropy while preserving predictive accuracy. This approach is particularly useful for:
 
 - **Reducing computational complexity** by identifying essential interactions
 - **Maximizing model entropy** by tracking entropy changes throughout the decimation process
-- **Building interpretable sparse models** for biological sequence data
 
 Additionally, this method is valuable for:
 
 - Understanding which interactions are essential for capturing sequence statistics
 - Building interpretable sparse models for protein families
-- Studying the thermodynamics of statistical models
-- Reducing computational requirements for downstream applications
 
 ## Key Features
 
@@ -44,7 +41,6 @@ At pre-defined density checkpoints, highentDCA computes model entropy using ther
 
 Multiple checkpoint strategies for saving model state:
 
-- **Linear checkpointing**: Save at regular intervals
 - **Density-based checkpointing**: Save at specific coupling densities
 - Automatic saving of model parameters, chains, and statistics
 - Optional integration with Weights & Biases for experiment tracking
@@ -81,58 +77,13 @@ edDCA achieves high sparsity while maintaining model accuracy:
 - Pearson correlation with data statistics remains >0.95
 - Essential interactions are preserved
 
-### Entropy Tracking
-
-Understanding model information content:
-
-- Entropy decreases as couplings are removed
-- Rate of decrease reveals importance of interactions
-- Provides thermodynamic insights into model complexity
-
-### Computational Efficiency
-
-Sparse models are faster for downstream applications:
-
-- Reduced memory footprint
-- Faster sampling and energy computation
-- Easier interpretation and visualization
-
 ## Use Cases
 
-### Protein Contact Prediction
+### Maximize model entropy
 
-edDCA models can identify essential residue-residue contacts:
+to be completed...
 
-```bash
-highentDCA train \
-    --data protein_family.fasta \
-    --model edDCA \
-    --density 0.05 \
-    --output contact_prediction
-```
 
-### Mutational Effect Prediction
-
-Sparse models capture key constraints for sequence function:
-
-```bash
-highentDCA train \
-    --data enzyme_family.fasta \
-    --model edDCA \
-    --density 0.03 \
-    --alphabet protein
-```
-
-### Thermodynamic Analysis
-
-Study entropy evolution during decimation:
-
-```bash
-highentDCA train \
-    --data sequence_data.fasta \
-    --model edDCA \
-    --theta_max 5.0 \
-    --nsteps 100
 ```
 
 ## Getting Started
@@ -145,18 +96,7 @@ New to highentDCA? Follow these steps:
 4. **[API Documentation](api/README.md)**: Use highentDCA in Python scripts
 5. **[Examples](usage.md#examples)**: Learn from practical examples
 
-## Comparison with bmDCA
 
-| Feature | bmDCA | edDCA (highentDCA) |
-|---------|-------|-------------------|
-| Coupling density | 100% (fully connected) | 2-10% (sparse) |
-| Training time | Standard | Longer (includes decimation) |
-| Memory usage | High | Lower (sparse parameters) |
-| Interpretability | Complex | Better (fewer interactions) |
-| Entropy tracking | No | Yes |
-| Use case | General-purpose | Sparsity & thermodynamics |
-
-## Integration with adabmDCA
 
 highentDCA is built on top of adabmDCA and shares:
 
@@ -203,12 +143,6 @@ You can use adabmDCA models as starting points for edDCA training, and edDCA out
 
 Contributions are welcome! Areas for improvement:
 
-- Additional checkpoint strategies
-- Alternative decimation algorithms
-- Visualization tools for entropy analysis
-- Extended entropy computation methods
-- Documentation and examples
-
 ## Related Resources
 
 ### Papers
@@ -237,10 +171,11 @@ highentDCA is released under the Apache License 2.0. See [LICENSE](../LICENSE) f
 If you use highentDCA in your research, please cite:
 
 ```bibtex
-@software{highentDCA2024,
-  author = {Netti, Roberto and Weigt, Martin},
-  title = {highentDCA: Entropy-decimated Direct Coupling Analysis},
-  year = {2024},
+@misc{highentDCA2025,
+  author = {Netti, Roberto and Calvanese, Francesco and Hinds, Emily and Ranganathan, Rama and Zamponi, Francesco and Weigt, Martin},
+  title = {highentDCA: Entropy-maximizing parameter decimation for Direct Coupling Analysis},
+  year = {2025},
+  note = {Manuscript in preparation},
   url = {https://github.com/robertonetti/highentropyDCA}
 }
 ```
