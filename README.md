@@ -4,6 +4,7 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
+[![Documentation](https://img.shields.io/badge/docs-online-brightgreen.svg)](https://robertonetti.github.io/highentropyDCA/)
 
 ## Overview
 
@@ -105,16 +106,17 @@ DCA_model/
 
 ## Documentation
 
-Comprehensive documentation is available in the `docs/` folder:
+📚 **[View the full documentation here](https://robertonetti.github.io/highentropyDCA/)** 📚
 
-- **[Installation Guide](docs/highentDCA_installation.md)**: Detailed installation instructions
-- **[Usage Guide](docs/highentDCA_usage.md)**: Complete CLI reference and examples
-- **[API Reference](docs/highentDCA_api/)**: Python API documentation
-  - [Checkpoint Management](docs/api/checkpoint.md)
-  - [Training Functions](docs/api/training.md)
-  - [edDCA Model](docs/api/models.edDCA.md)
-  - [CLI Interface](docs/api/cli.md)
-  - [Parser](docs/api/parser.md)
+The documentation includes:
+
+- **[Installation Guide](https://robertonetti.github.io/highentropyDCA/highentDCA_installation/)**: Detailed installation instructions
+- **[Usage Guide](https://robertonetti.github.io/highentropyDCA/highentDCA_usage/)**: Complete CLI reference and examples
+- **[API Reference](https://robertonetti.github.io/highentropyDCA/api/highentDCA_overview/)**: Python API documentation
+  - [Checkpoint Management](https://robertonetti.github.io/highentropyDCA/api/highentDCA_checkpoint/)
+  - [Training Functions](https://robertonetti.github.io/highentropyDCA/api/highentDCA_training/)
+  - [edDCA Model](https://robertonetti.github.io/highentropyDCA/api/highentDCA_models.edDCA/)
+  - [Entropy Computation](https://robertonetti.github.io/highentropyDCA/api/highentDCA_entropy/)
 
 ## Core Concepts
 
