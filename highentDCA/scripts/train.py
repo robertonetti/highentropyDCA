@@ -10,10 +10,11 @@ from adabmDCA.fasta import get_tokens
 from adabmDCA.io import load_chains, load_params
 from adabmDCA.stats import get_freq_single_point, get_freq_two_points
 from adabmDCA.utils import init_chains, init_parameters, get_device, get_dtype
-from adabmDCA.parser import add_args_train
 from adabmDCA.sampling import get_sampler
 from adabmDCA.functional import one_hot
 from adabmDCA.checkpoint import get_checkpoint
+
+from highentDCA.parser import add_args_train
 
 
 # import command-line input arguments
@@ -31,22 +32,25 @@ def main():
     parser = create_parser()
     args = parser.parse_args()
     
-    print("\n" + "".join(["*"] * 10) + f" Training {args.model} model " + "".join(["*"] * 10) + "\n")
+    print("\n" + "="*70)
+    print(f"  TRAINING {args.model.upper()} MODEL")
+    print("="*70 + "\n")
     # Set the device
     device = get_device(args.device)
     dtype = get_dtype(args.dtype)
     template = "{0:<30} {1:<50}"
-    print(template.format("Input MSA:", str(args.data)))
-    print(template.format("Output folder:", str(args.output)))
-    print(template.format("Alphabet:", args.alphabet))
-    print(template.format("Learning rate:", args.lr))
-    print(template.format("Number of sweeps:", args.nsweeps))
-    print(template.format("Sampler:", args.sampler))
-    print(template.format("Target Pearson Cij:", args.target))
+    print("Configuration:")
+    print(template.format("  Input MSA:", str(args.data)))
+    print(template.format("  Output folder:", str(args.output)))
+    print(template.format("  Alphabet:", args.alphabet))
+    print(template.format("  Learning rate:", args.lr))
+    print(template.format("  Number of sweeps:", args.nsweeps))
+    print(template.format("  Sampler:", args.sampler))
+    print(template.format("  Target Pearson Cij:", args.target))
     if args.pseudocount is not None:
-        print(template.format("Pseudocount:", args.pseudocount))
-    print(template.format("Random seed:", args.seed))
-    print(template.format("Data type:", args.dtype))
+        print(template.format("  Pseudocount:", args.pseudocount))
+    print(template.format("  Random seed:", args.seed))
+    print(template.format("  Data type:", args.dtype))
     print("\n")
     
     # Check if the data file exist
@@ -76,7 +80,7 @@ def main():
         }
     
     # Import dataset
-    print("Importing dataset...")
+    print("→ Importing dataset...")
     dataset = DatasetDCA(
         path_data=args.data,
         path_weights=args.weights,
@@ -89,7 +93,7 @@ def main():
     
     # Import the test dataset if provided
     if args.test is not None:
-        print("Importing test dataset...")
+        print("→ Importing test dataset...")
         test_dataset = DatasetDCA(
             path_data=args.test,
             path_weights=None,
@@ -117,7 +121,7 @@ def main():
         else:
             path_weights = folder / "weights.dat"
         np.savetxt(path_weights, dataset.weights.cpu().numpy())
-        print(f"Weights saved in {path_weights}")
+        print(f"  ✓ Weights saved: {path_weights}")
         
     # Set the random seed
     torch.manual_seed(args.seed)
@@ -131,7 +135,7 @@ def main():
     
     if args.pseudocount is None:
         args.pseudocount = 1. / dataset.get_effective_size()
-        print(f"Pseudocount automatically set to {args.pseudocount}.")
+        print(f"  ℹ Pseudocount automatically set to {args.pseudocount:.6f}")
         
     data_oh = one_hot(dataset.data, num_classes=q).to(dtype)
     fi_target = get_freq_single_point(data=data_oh, weights=dataset.weights, pseudo_count=args.pseudocount)
@@ -139,7 +143,7 @@ def main():
     
     # Initialize parameters and chains
     if args.path_params:
-        print("Loading parameters...")
+        print("→ Loading parameters...")
         tokens = get_tokens(args.alphabet)
         params = load_params(fname=args.path_params, tokens=tokens, device=device, dtype=dtype)
         mask = torch.zeros(size=(L, q, L, q), dtype=torch.bool, device=device)
@@ -156,7 +160,7 @@ def main():
             mask = torch.zeros(size=(L, q, L, q), device=device, dtype=torch.bool)
     
     if args.path_chains:
-        print("Loading chains...")
+        print("→ Loading chains...")
         chains, log_weights = load_chains(fname=args.path_chains, tokens=dataset.tokens, load_weights=True)
         chains = one_hot(
             torch.tensor(chains, device=device),
@@ -164,10 +168,10 @@ def main():
         ).to(dtype)
         log_weights = torch.tensor(log_weights, device=device, dtype=dtype)
         args.nchains = chains.shape[0]
-        print(f"Loaded {args.nchains} chains.")
+        print(f"  ✓ Loaded {args.nchains} chains")
         
     else:
-        print(f"Number of chains set to {args.nchains}.")
+        print(f"  ℹ Initializing {args.nchains} chains")
         chains = init_chains(num_chains=args.nchains, L=L, q=q, fi=fi_target, device=device, dtype=dtype)
         log_weights = torch.zeros(size=(args.nchains,), device=device, dtype=dtype)
         
@@ -204,8 +208,8 @@ def main():
         nsweeps=args.nsweeps,
         nepochs=args.nepochs,
         lr=args.lr,
-        factivate=args.factivate,
-        gsteps=args.gsteps,
+        # factivate=args.factivate,
+        # gsteps=args.gsteps,
         drate=args.drate,
         target_density=args.density,
         checkpoint=checkpoint,

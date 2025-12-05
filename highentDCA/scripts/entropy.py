@@ -57,7 +57,9 @@ def compute_entropy(
         dict: Dictionary containing the final entropy and free energy values
     """
     
-    print("\n" + "".join(["*"] * 10) + f" Computing model's entropy " + "".join(["*"] * 10) + "\n")
+    print("\n" + "="*70)
+    print("  COMPUTING MODEL'S ENTROPY")
+    print("="*70 + "\n")
     
     # Create output folder
     folder = Path(output)
@@ -107,12 +109,12 @@ def compute_entropy(
         f.write(header_string + "\n")
     
     # Sampling to thermalize at theta = 0
-    print("Thermalizing at theta = 0...")
+    print("→ Thermalizing at theta = 0...")
     chains_0 = sampler(chains, params, nsweeps_zero) 
     ave_energy_0 = torch.mean(compute_energy(chains_0, params))
 
     # Sampling to thermalize at theta = theta_max
-    print("Thermalizing at theta = theta_max...")
+    print("→ Thermalizing at theta = theta_max...")
     params_theta = {k : v.clone() for k, v in params.items()}
     params_theta["bias"] += theta_max * targetseq
     
@@ -121,7 +123,7 @@ def compute_entropy(
     seqID = get_seqid(chains_theta, targetseq)
             
     # Find theta_max to generate 10% target sequences in the sample
-    print("Finding theta_max to generate 10% target sequences in the sample...")
+    print("→ Finding theta_max to generate 10% target sequences...")
     p_wt =  (seqID == L).sum().item() / nchains
     nsweep_find_theta = 100
     while p_wt <= 0.1:
@@ -132,10 +134,10 @@ def compute_entropy(
         chains_theta = sampler(chains_theta, params_theta, nsweep_find_theta)
         seqID = get_seqid(chains_theta, targetseq)
         p_wt = (seqID == L).sum().item() / nchains
-    print(f"Found theta_max: {theta_max:.2f} with {(p_wt * 100):.2f}% sequences collapsed to WT.")
+    print(f"  ✓ Found theta_max = {theta_max:.4f} ({(p_wt * 100):.2f}% sequences at target)")
     
     # initiaize Thermodynamic Integration
-    print("Thermodynamic Integration...")
+    print(f"\n→ Running Thermodynamic Integration ({nsteps} steps)...\n")
     int_step = nsteps
     F_max = np.log(p_wt) + torch.mean(compute_energy(chains_theta[seqID == L], params_theta))
     thetas = torch.linspace(0, theta_max, int_step) 
@@ -171,7 +173,8 @@ def compute_entropy(
             f.write(" ".join([f"{value:<15.3f}" if isinstance(value, float) else f"{value:<15}" for value in logs.values()]) + "\n")
         
     # pbar.close()
-    print(f"Process completed. Results saved in {file_log}.")
+    print(f"\n  ✓ Entropy computation completed")
+    print(f"  ✓ Results saved: {file_log}\n")
     
     return S.item()
   
