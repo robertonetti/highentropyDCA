@@ -1,0 +1,3523 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../highentDCA_installation/">
+      
+      
+        <link rel="next" href="../api/highentDCA_overview/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Usage Guide - highentDCA & adabmDCApy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#usage-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="highentDCA &amp; adabmDCApy" class="md-header__button md-logo" aria-label="highentDCA & adabmDCApy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            highentDCA & adabmDCApy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Usage Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="highentDCA &amp; adabmDCApy" class="md-nav__button md-logo" aria-label="highentDCA & adabmDCApy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    highentDCA & adabmDCApy
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    highentDCA (Entropy Decimation)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    highentDCA (Entropy Decimation)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command-Line Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Arguments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-data-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --data / -d
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-model-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --model / -m
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-output-o" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --output / -o
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-label-l" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --label / -l
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eddca-specific-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        edDCA-Specific Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="edDCA-Specific Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decimation-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decimation Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decimation Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --density
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-drate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --drate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsweeps_dec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsweeps_dec
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entropy-computation-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entropy Computation Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entropy Computation Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-theta_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --theta_max
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsteps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsteps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsweeps_step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsweeps_step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsweeps_theta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsweeps_theta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsweeps_zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsweeps_zero
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-training-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General Training Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General Training Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convergence-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convergence Criteria
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Convergence Criteria">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-target-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --target / -t
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nepochs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nepochs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sampling-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sampling Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-sampler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --sampler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsweeps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsweeps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nchains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nchains
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimization Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-lr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --lr
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regularization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regularization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-pseudocount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --pseudocount
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Processing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alphabet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alphabet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Alphabet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-alphabet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --alphabet
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-reweighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Reweighting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Reweighting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-weights-w" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --weights / -w
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-clustering_seqid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --clustering_seqid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-no_reweighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --no_reweighting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checkpoint Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkpoint-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checkpoint Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --checkpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-target_acc_rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --target_acc_rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experiment-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experiment Tracking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Experiment Tracking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#weights-biases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weights &amp; Biases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Weights &amp; Biases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-wandb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --wandb
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#computational-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Computational Settings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Computational Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --device
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Type
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-dtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --dtype
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restoration-and-continuation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restoration and Continuation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Restoration and Continuation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-path_params-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --path_params / -p
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-path_chains-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --path_chains / -c
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-set-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Set Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Set Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random-seed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Random Seed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Random Seed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-seed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --seed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-example-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Example Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-basic-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Basic Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-high-accuracy-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: High-Accuracy Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-fast-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Fast Exploration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-rna-family" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: RNA Family
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-with-weights-biases-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: With Weights &amp; Biases Tracking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-continue-from-bmdca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Continue from bmDCA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analyzing-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analyzing Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analyzing Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-training-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Training Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-entropy-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extracting Entropy Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-model-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Model Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-coupling-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualizing Coupling Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#training-doesnt-converge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training doesn't converge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-memory-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of memory errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-is-too-slow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training is too slow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entropy-computation-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entropy computation fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/highentDCA_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/highentDCA_checkpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/highentDCA_training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/highentDCA_models.edDCA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    edDCA Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/highentDCA_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entropy Computation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    adabmDCA (Base Framework)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    adabmDCA (Base Framework)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input data and preprocessing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quicklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quicklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../script_arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command-Line Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Arguments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-data-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --data / -d
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-model-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --model / -m
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-output-o" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --output / -o
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-label-l" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --label / -l
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eddca-specific-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        edDCA-Specific Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="edDCA-Specific Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decimation-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decimation Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decimation Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --density
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-drate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --drate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsweeps_dec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsweeps_dec
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entropy-computation-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entropy Computation Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entropy Computation Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-theta_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --theta_max
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsteps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsteps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsweeps_step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsweeps_step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsweeps_theta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsweeps_theta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsweeps_zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsweeps_zero
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-training-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General Training Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General Training Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convergence-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convergence Criteria
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Convergence Criteria">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-target-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --target / -t
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nepochs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nepochs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sampling-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sampling Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-sampler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --sampler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nsweeps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nsweeps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nchains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --nchains
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimization Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-lr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --lr
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regularization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regularization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-pseudocount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --pseudocount
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Processing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alphabet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alphabet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Alphabet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-alphabet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --alphabet
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-reweighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Reweighting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Reweighting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-weights-w" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --weights / -w
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-clustering_seqid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --clustering_seqid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-no_reweighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --no_reweighting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checkpoint Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkpoint-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checkpoint Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --checkpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-target_acc_rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --target_acc_rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experiment-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experiment Tracking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Experiment Tracking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#weights-biases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weights &amp; Biases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Weights &amp; Biases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-wandb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --wandb
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#computational-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Computational Settings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Computational Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --device
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Type
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-dtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --dtype
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restoration-and-continuation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restoration and Continuation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Restoration and Continuation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-path_params-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --path_params / -p
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-path_chains-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --path_chains / -c
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-set-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Set Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Set Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random-seed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Random Seed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Random Seed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-seed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --seed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-example-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Example Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-basic-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Basic Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-high-accuracy-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: High-Accuracy Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-fast-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Fast Exploration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-rna-family" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: RNA Family
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-with-weights-biases-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: With Weights &amp; Biases Tracking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-continue-from-bmdca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Continue from bmDCA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analyzing-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analyzing Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analyzing Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-training-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Training Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-entropy-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extracting Entropy Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-model-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Model Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-coupling-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualizing Coupling Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#training-doesnt-converge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training doesn't converge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-memory-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of memory errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-is-too-slow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training is too slow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entropy-computation-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entropy computation fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="usage-guide">Usage Guide</h1>
+<p>This guide covers how to use highentDCA for training entropy-decimated DCA models, including command-line interface usage, parameter tuning, and practical examples.</p>
+<h2 id="quick-start">Quick Start</h2>
+<p>The simplest way to train an edDCA model:</p>
+<pre><code class="language-bash">highentDCA train \
+    --data your_alignment.fasta \
+    --output results \
+    --model edDCA \
+    --density 0.02
+</code></pre>
+<p>This command trains a sparse edDCA model with 2% coupling density using default parameters.</p>
+<h2 id="command-line-interface">Command-Line Interface</h2>
+<p>highentDCA provides a command-line interface through the <code>highentDCA</code> command. Currently, the main command is <code>train</code>.</p>
+<h3 id="basic-syntax">Basic Syntax</h3>
+<pre><code class="language-bash">highentDCA train [OPTIONS]
+</code></pre>
+<h3 id="required-arguments">Required Arguments</h3>
+<h4 id="-data-d"><code>--data</code> / <code>-d</code></h4>
+<p>Path to the input multiple sequence alignment (MSA) in FASTA format.</p>
+<pre><code class="language-bash">--data example_data/PF00072.fasta
+</code></pre>
+<p><strong>Requirements</strong>:
+- FASTA format with aligned sequences
+- Minimum ~1000 sequences recommended
+- All sequences must have the same length
+- Quality-controlled alignment (remove fragments, handle gaps)</p>
+<h3 id="model-selection">Model Selection</h3>
+<h4 id="-model-m"><code>--model</code> / <code>-m</code></h4>
+<p>Choose the type of DCA model to train. For highentDCA, use <code>edDCA</code>.</p>
+<pre><code class="language-bash">--model edDCA
+</code></pre>
+<p><strong>Options</strong>:
+- <code>bmDCA</code>: Fully-connected Boltzmann Machine (standard DCA)
+- <code>eaDCA</code>: Edge-adding DCA (progressive sparsity)
+- <code>edDCA</code>: Entropy-decimated DCA (progressive decimation with entropy tracking)</p>
+<h3 id="output-options">Output Options</h3>
+<h4 id="-output-o"><code>--output</code> / <code>-o</code></h4>
+<p>Directory where model outputs will be saved. Default: <code>DCA_model</code></p>
+<pre><code class="language-bash">--output my_results
+</code></pre>
+<p><strong>Output structure</strong>:</p>
+<pre><code>my_results/
+├── params.dat                  # Final model parameters
+├── chains.fasta               # Final Markov chains
+├── adabmDCA_highent.log      # Training log
+├── entropy_decimation/        # Checkpoints at different densities
+│   ├── density_0.980.fasta
+│   ├── density_0.587.fasta
+│   └── ...
+└── entropy_values.txt         # Entropy vs density data
+</code></pre>
+<h4 id="-label-l"><code>--label</code> / <code>-l</code></h4>
+<p>Add a custom label to output files. Optional.</p>
+<pre><code class="language-bash">--label PF00072_run1
+</code></pre>
+<p>Output files will be named: <code>PF00072_run1_params.dat</code>, <code>PF00072_run1_chains.fasta</code>, etc.</p>
+<h2 id="eddca-specific-parameters">edDCA-Specific Parameters</h2>
+<h3 id="decimation-parameters">Decimation Parameters</h3>
+<h4 id="-density"><code>--density</code></h4>
+<p>Target coupling density to reach (fraction of couplings to keep). Default: <code>0.02</code> (2%)</p>
+<pre><code class="language-bash">--density 0.05  # Keep 5% of couplings
+</code></pre>
+<p><strong>Typical values</strong>:
+- <code>0.02</code> - Very sparse (2% of couplings)
+- <code>0.05</code> - Sparse (5% of couplings)
+- <code>0.10</code> - Moderately sparse (10% of couplings)</p>
+<p><strong>Guidelines</strong>:
+- Lower density = sparser model, faster inference
+- Too low may lose important information
+- Protein families: 2-5% usually sufficient
+- RNA families: 5-10% may be needed</p>
+<h4 id="-drate"><code>--drate</code></h4>
+<p>Decimation rate: fraction of remaining couplings to prune at each step. Default: <code>0.01</code> (1%)</p>
+<pre><code class="language-bash">--drate 0.02  # Prune 2% of remaining couplings per step
+</code></pre>
+<p><strong>Trade-offs</strong>:
+- Smaller <code>drate</code> (e.g., 0.005): Slower but more gradual decimation
+- Larger <code>drate</code> (e.g., 0.05): Faster but less refined
+- Recommended: 0.01-0.02 for most applications</p>
+<h4 id="-nsweeps_dec"><code>--nsweeps_dec</code></h4>
+<p>Number of Monte Carlo sweeps per gradient update during decimation. Default: <code>10</code></p>
+<pre><code class="language-bash">--nsweeps_dec 20
+</code></pre>
+<p><strong>Guidelines</strong>:
+- Increase for better equilibration (slower training)
+- Decrease for faster training (may reduce accuracy)
+- Typical range: 5-50</p>
+<h3 id="entropy-computation-parameters">Entropy Computation Parameters</h3>
+<p>At pre-defined density checkpoints, highentDCA computes model entropy using thermodynamic integration.</p>
+<h4 id="-theta_max"><code>--theta_max</code></h4>
+<p>Maximum integration strength for thermodynamic integration. Default: <code>5.0</code></p>
+<pre><code class="language-bash">--theta_max 10.0
+</code></pre>
+<p>Higher values provide better integration range but require more sampling.</p>
+<h4 id="-nsteps"><code>--nsteps</code></h4>
+<p>Number of integration steps for entropy computation. Default: <code>100</code></p>
+<pre><code class="language-bash">--nsteps 200
+</code></pre>
+<p>More steps = more accurate entropy estimate (but slower).</p>
+<h4 id="-nsweeps_step"><code>--nsweeps_step</code></h4>
+<p>Number of MC sweeps per integration step. Default: <code>100</code></p>
+<pre><code class="language-bash">--nsweeps_step 50
+</code></pre>
+<h4 id="-nsweeps_theta"><code>--nsweeps_theta</code></h4>
+<p>Number of sweeps to equilibrate at θ_max. Default: <code>100</code></p>
+<pre><code class="language-bash">--nsweeps_theta 200
+</code></pre>
+<h4 id="-nsweeps_zero"><code>--nsweeps_zero</code></h4>
+<p>Number of sweeps to equilibrate at θ=0. Default: <code>100</code></p>
+<pre><code class="language-bash">--nsweeps_zero 200
+</code></pre>
+<p><strong>Entropy computation tips</strong>:
+- Increase all nsweeps values for better accuracy
+- Decrease for faster (but less accurate) entropy estimates
+- Default values are usually sufficient</p>
+<h2 id="general-training-parameters">General Training Parameters</h2>
+<p>These parameters control the overall training process.</p>
+<h3 id="convergence-criteria">Convergence Criteria</h3>
+<h4 id="-target-t"><code>--target</code> / <code>-t</code></h4>
+<p>Target Pearson correlation between model and data statistics. Default: <code>0.95</code></p>
+<pre><code class="language-bash">--target 0.98  # Stricter convergence
+</code></pre>
+<p><strong>Guidelines</strong>:
+- <code>0.90-0.95</code>: Standard convergence
+- <code>0.95-0.98</code>: High accuracy (slower training)
+- <code>&gt;0.98</code>: Very strict (may not converge for complex families)</p>
+<h4 id="-nepochs"><code>--nepochs</code></h4>
+<p>Maximum number of training epochs. Default: <code>50000</code></p>
+<pre><code class="language-bash">--nepochs 100000
+</code></pre>
+<p>Training stops when either <code>--target</code> or <code>--nepochs</code> is reached.</p>
+<h3 id="sampling-parameters">Sampling Parameters</h3>
+<h4 id="-sampler"><code>--sampler</code></h4>
+<p>MCMC sampling method. Default: <code>gibbs</code></p>
+<pre><code class="language-bash">--sampler metropolis
+</code></pre>
+<p><strong>Options</strong>:
+- <code>gibbs</code>: Gibbs sampling (default, usually faster)
+- <code>metropolis</code>: Metropolis-Hastings sampling</p>
+<h4 id="-nsweeps"><code>--nsweeps</code></h4>
+<p>Number of MC sweeps per gradient update (before decimation starts). Default: <code>10</code></p>
+<pre><code class="language-bash">--nsweeps 20
+</code></pre>
+<p>More sweeps = better gradient estimates but slower training.</p>
+<h4 id="-nchains"><code>--nchains</code></h4>
+<p>Number of parallel Markov chains for sampling. Default: <code>10000</code></p>
+<pre><code class="language-bash">--nchains 5000   # Use fewer chains (less memory)
+--nchains 20000  # Use more chains (better statistics)
+</code></pre>
+<p><strong>Guidelines</strong>:
+- More chains = better statistics, more GPU memory
+- Fewer chains = faster, less memory
+- Typical range: 5000-20000</p>
+<h3 id="optimization-parameters">Optimization Parameters</h3>
+<h4 id="-lr"><code>--lr</code></h4>
+<p>Learning rate for gradient descent. Default: <code>0.01</code></p>
+<pre><code class="language-bash">--lr 0.005  # Slower, more stable
+--lr 0.02   # Faster, may be less stable
+</code></pre>
+<p><strong>Guidelines</strong>:
+- Start with 0.01
+- Decrease if training is unstable
+- Increase for faster convergence (if stable)</p>
+<h3 id="regularization">Regularization</h3>
+<h4 id="-pseudocount"><code>--pseudocount</code></h4>
+<p>Pseudocount for smoothing empirical frequencies. Default: <code>None</code> (automatic: 1/Meff)</p>
+<pre><code class="language-bash">--pseudocount 0.5
+</code></pre>
+<p>Acts as regularization to prevent overfitting.</p>
+<h2 id="sequence-processing">Sequence Processing</h2>
+<h3 id="alphabet">Alphabet</h3>
+<h4 id="-alphabet"><code>--alphabet</code></h4>
+<p>Sequence alphabet/encoding. Default: <code>protein</code></p>
+<pre><code class="language-bash">--alphabet protein  # Standard 20 amino acids + gap
+--alphabet rna      # RNA: ACGU + gap
+--alphabet dna      # DNA: ACGT + gap
+--alphabet &quot;ACDEFG&quot; # Custom alphabet
+</code></pre>
+<p><strong>Built-in alphabets</strong>:
+- <code>protein</code>: <code>ACDEFGHIKLMNPQRSTVWY-</code>
+- <code>rna</code>: <code>ACGU-</code>
+- <code>dna</code>: <code>ACGT-</code></p>
+<p>Custom alphabets must include all characters present in the alignment.</p>
+<h3 id="sequence-reweighting">Sequence Reweighting</h3>
+<p>Sequence reweighting reduces phylogenetic bias in the dataset.</p>
+<h4 id="-weights-w"><code>--weights</code> / <code>-w</code></h4>
+<p>Path to pre-computed sequence weights file. Optional.</p>
+<pre><code class="language-bash">--weights sequence_weights.txt
+</code></pre>
+<p>File format: one weight per line, same order as sequences in FASTA.</p>
+<h4 id="-clustering_seqid"><code>--clustering_seqid</code></h4>
+<p>Sequence identity threshold for automatic reweighting. Default: <code>0.8</code> (80%)</p>
+<pre><code class="language-bash">--clustering_seqid 0.9  # Cluster at 90% identity
+</code></pre>
+<p>Sequences with identity ≥ threshold are clustered, and cluster members share weight.</p>
+<h4 id="-no_reweighting"><code>--no_reweighting</code></h4>
+<p>Disable automatic sequence reweighting.</p>
+<pre><code class="language-bash">--no_reweighting
+</code></pre>
+<p>Use if your alignment is already diversity-corrected or unweighted analysis is desired.</p>
+<h2 id="checkpoint-options">Checkpoint Options</h2>
+<h3 id="checkpoint-strategy">Checkpoint Strategy</h3>
+<h4 id="-checkpoints"><code>--checkpoints</code></h4>
+<p>Checkpoint strategy for saving model state. Default: <code>linear</code></p>
+<pre><code class="language-bash">--checkpoints linear      # Save every N epochs
+--checkpoints acceptance  # Save when acceptance rate changes
+</code></pre>
+<p>For edDCA, checkpoints are also triggered at pre-defined density thresholds for entropy computation.</p>
+<h4 id="-target_acc_rate"><code>--target_acc_rate</code></h4>
+<p>Target acceptance rate for acceptance-based checkpoints. Default: <code>0.5</code></p>
+<pre><code class="language-bash">--target_acc_rate 0.6
+</code></pre>
+<p>Only used when <code>--checkpoints acceptance</code>.</p>
+<h2 id="experiment-tracking">Experiment Tracking</h2>
+<h3 id="weights-biases">Weights &amp; Biases</h3>
+<h4 id="-wandb"><code>--wandb</code></h4>
+<p>Enable Weights &amp; Biases logging for experiment tracking.</p>
+<pre><code class="language-bash">--wandb
+</code></pre>
+<p>Requires W&amp;B account and login (<code>wandb login</code>).</p>
+<p>Logs:
+- Training metrics (Pearson, entropy, density)
+- System metrics (GPU usage, time)
+- Model parameters and outputs</p>
+<h2 id="computational-settings">Computational Settings</h2>
+<h3 id="device-selection">Device Selection</h3>
+<h4 id="-device"><code>--device</code></h4>
+<p>Computation device. Default: <code>cuda</code></p>
+<pre><code class="language-bash">--device cuda  # Use GPU
+--device cpu   # Use CPU
+</code></pre>
+<p>GPU is strongly recommended for large datasets.</p>
+<h3 id="data-type">Data Type</h3>
+<h4 id="-dtype"><code>--dtype</code></h4>
+<p>Numerical precision. Default: <code>float32</code></p>
+<pre><code class="language-bash">--dtype float32  # Standard precision (faster)
+--dtype float64  # Double precision (more accurate)
+</code></pre>
+<p><code>float32</code> is usually sufficient and faster.</p>
+<h2 id="advanced-options">Advanced Options</h2>
+<h3 id="restoration-and-continuation">Restoration and Continuation</h3>
+<h4 id="-path_params-p"><code>--path_params</code> / <code>-p</code></h4>
+<p>Path to existing model parameters to restore training.</p>
+<pre><code class="language-bash">--path_params previous_run/params.dat
+</code></pre>
+<h4 id="-path_chains-c"><code>--path_chains</code> / <code>-c</code></h4>
+<p>Path to existing chains for restoration.</p>
+<pre><code class="language-bash">--path_chains previous_run/chains.fasta
+</code></pre>
+<p><strong>Use case</strong>: Continue training from a checkpoint or use a pre-trained bmDCA as starting point.</p>
+<h3 id="test-set-evaluation">Test Set Evaluation</h3>
+<h4 id="-test"><code>--test</code></h4>
+<p>Path to test set MSA for evaluation during training.</p>
+<pre><code class="language-bash">--test test_sequences.fasta
+</code></pre>
+<p>Test log-likelihood will be computed and logged (requires additional computation).</p>
+<h3 id="random-seed">Random Seed</h3>
+<h4 id="-seed"><code>--seed</code></h4>
+<p>Random seed for reproducibility. Default: <code>0</code></p>
+<pre><code class="language-bash">--seed 42
+</code></pre>
+<p>Use different seeds for multiple independent runs.</p>
+<h2 id="complete-example-commands">Complete Example Commands</h2>
+<h3 id="example-1-basic-training">Example 1: Basic Training</h3>
+<p>Train a sparse edDCA model with default settings:</p>
+<pre><code class="language-bash">highentDCA train \
+    --data protein_family.fasta \
+    --output results/protein_edDCA \
+    --model edDCA \
+    --density 0.02 \
+    --seed 42
+</code></pre>
+<h3 id="example-2-high-accuracy-training">Example 2: High-Accuracy Training</h3>
+<p>Train with stricter convergence and more sampling:</p>
+<pre><code class="language-bash">highentDCA train \
+    --data protein_family.fasta \
+    --output results/high_accuracy \
+    --model edDCA \
+    --density 0.03 \
+    --target 0.98 \
+    --nchains 20000 \
+    --nsweeps 20 \
+    --nsweeps_dec 20 \
+    --lr 0.005 \
+    --seed 42
+</code></pre>
+<h3 id="example-3-fast-exploration">Example 3: Fast Exploration</h3>
+<p>Quick training for exploratory analysis:</p>
+<pre><code class="language-bash">highentDCA train \
+    --data protein_family.fasta \
+    --output results/fast_run \
+    --model edDCA \
+    --density 0.05 \
+    --drate 0.02 \
+    --nchains 5000 \
+    --nsweeps 5 \
+    --nsweeps_dec 5 \
+    --target 0.90 \
+    --nsteps 50 \
+    --nsweeps_step 50
+</code></pre>
+<h3 id="example-4-rna-family">Example 4: RNA Family</h3>
+<p>Train on RNA alignment with custom parameters:</p>
+<pre><code class="language-bash">highentDCA train \
+    --data rna_family.fasta \
+    --output results/rna_edDCA \
+    --model edDCA \
+    --alphabet rna \
+    --density 0.08 \
+    --drate 0.01 \
+    --clustering_seqid 0.85 \
+    --seed 123
+</code></pre>
+<h3 id="example-5-with-weights-biases-tracking">Example 5: With Weights &amp; Biases Tracking</h3>
+<p>Track experiments with W&amp;B:</p>
+<pre><code class="language-bash">highentDCA train \
+    --data protein_family.fasta \
+    --output results/wandb_run \
+    --model edDCA \
+    --density 0.02 \
+    --label experiment_001 \
+    --wandb \
+    --seed 42
+</code></pre>
+<h3 id="example-6-continue-from-bmdca">Example 6: Continue from bmDCA</h3>
+<p>Start from pre-trained bmDCA model:</p>
+<pre><code class="language-bash"># First train bmDCA (or use existing)
+highentDCA train \
+    --data protein_family.fasta \
+    --output bmdca_model \
+    --model bmDCA \
+    --target 0.95
+
+# Then decimate it
+highentDCA train \
+    --data protein_family.fasta \
+    --output eddca_model \
+    --model edDCA \
+    --path_params bmdca_model/params.dat \
+    --path_chains bmdca_model/chains.fasta \
+    --density 0.02
+</code></pre>
+<h2 id="analyzing-results">Analyzing Results</h2>
+<h3 id="reading-training-logs">Reading Training Logs</h3>
+<p>The log file (<code>adabmDCA_highent.log</code>) contains training progress:</p>
+<pre><code class="language-bash">cat results/adabmDCA_highent.log
+</code></pre>
+<p>Example output:</p>
+<pre><code>Epochs     Pearson    Entropy    Density    Time      
+0          0.950      125.456    1.000      0.000
+50         0.955      120.123    0.587      120.450
+100        0.953      115.678    0.359      250.890
+</code></pre>
+<h3 id="extracting-entropy-values">Extracting Entropy Values</h3>
+<p>Entropy vs. density data is saved in <code>entropy_values.txt</code>:</p>
+<pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load data
+df = pd.read_csv('results/entropy_values.txt', sep='\t')
+
+# Plot
+plt.figure(figsize=(10, 6))
+plt.plot(df['Density'], df['Entropy'], 'o-', linewidth=2, markersize=8)
+plt.xlabel('Coupling Density', fontsize=14)
+plt.ylabel('Model Entropy', fontsize=14)
+plt.title('Entropy Evolution During Decimation', fontsize=16)
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('entropy_evolution.png', dpi=300)
+plt.show()
+</code></pre>
+<h3 id="loading-model-parameters">Loading Model Parameters</h3>
+<p>Load trained parameters for analysis:</p>
+<pre><code class="language-python">from adabmDCA.io import load_params
+import torch
+
+# Load parameters
+params, tokens, L, q = load_params('results/params.dat')
+
+# Access fields and couplings
+fields = params['bias']  # Shape: (L, q)
+couplings = params['coupling_matrix']  # Shape: (L, q, L, q)
+
+print(f&quot;Sequence length: {L}&quot;)
+print(f&quot;Alphabet size: {q}&quot;)
+print(f&quot;Number of non-zero couplings: {(couplings != 0).sum().item()}&quot;)
+</code></pre>
+<h3 id="visualizing-coupling-matrix">Visualizing Coupling Matrix</h3>
+<p>Plot the sparse coupling matrix:</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from adabmDCA.io import load_params
+
+# Load parameters
+params, tokens, L, q = load_params('results/params.dat')
+couplings = params['coupling_matrix'].cpu().numpy()
+
+# Compute Frobenius norm for each coupling
+coupling_strength = np.linalg.norm(couplings.reshape(L, q, L, q), axis=(1, 3))
+
+# Plot
+plt.figure(figsize=(10, 10))
+plt.imshow(coupling_strength, cmap='viridis', interpolation='nearest')
+plt.colorbar(label='Coupling Strength')
+plt.xlabel('Position j')
+plt.ylabel('Position i')
+plt.title('Sparse Coupling Matrix (edDCA)')
+plt.tight_layout()
+plt.savefig('coupling_matrix.png', dpi=300)
+plt.show()
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="training-doesnt-converge">Training doesn't converge</h3>
+<p><strong>Solutions</strong>:
+- Decrease learning rate: <code>--lr 0.005</code>
+- Increase sweeps: <code>--nsweeps 20 --nsweeps_dec 20</code>
+- Relax target: <code>--target 0.93</code>
+- Check data quality: remove fragments, check alignment</p>
+<h3 id="out-of-memory-errors">Out of memory errors</h3>
+<p><strong>Solutions</strong>:
+- Reduce number of chains: <code>--nchains 5000</code>
+- Use float32: <code>--dtype float32</code> (default)
+- Use smaller batch size for GPU
+- Monitor with: <code>nvidia-smi -l 1</code></p>
+<h3 id="training-is-too-slow">Training is too slow</h3>
+<p><strong>Solutions</strong>:
+- Ensure GPU is being used: check <code>--device cuda</code>
+- Reduce accuracy requirements: <code>--target 0.93</code>
+- Use fewer chains: <code>--nchains 8000</code>
+- Increase decimation rate: <code>--drate 0.02</code>
+- Reduce entropy computation accuracy</p>
+<h3 id="entropy-computation-fails">Entropy computation fails</h3>
+<p><strong>Solutions</strong>:
+- Increase equilibration: <code>--nsweeps_zero 100 --nsweeps_theta 100</code>
+- Reduce theta_max: <code>--theta_max 3.0</code>
+- Check data quality and convergence</p>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Start with defaults</strong>: Begin with default parameters and adjust based on results</li>
+<li><strong>Monitor convergence</strong>: Check Pearson correlation in logs</li>
+<li><strong>Use appropriate density</strong>: 2-5% for most protein families</li>
+<li><strong>Save checkpoints</strong>: Use <code>--label</code> to organize multiple runs</li>
+<li><strong>Validate results</strong>: Check entropy evolution makes sense</li>
+<li><strong>Use test sets</strong>: Evaluate generalization with <code>--test</code></li>
+<li><strong>Set seeds</strong>: Use <code>--seed</code> for reproducibility</li>
+<li><strong>Track experiments</strong>: Use <code>--wandb</code> for complex parameter searches</li>
+</ol>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><strong><a href="../api/">API Reference</a></strong>: Use highentDCA in Python scripts</li>
+<li><strong><a href="api/checkpoint.md">Checkpoint Documentation</a></strong>: Understand checkpoint strategies</li>
+<li><strong><a href="api/models.edDCA.md">edDCA Model Documentation</a></strong>: Deep dive into the algorithm</li>
+</ul>
+<h2 id="getting-help">Getting Help</h2>
+<p>If you encounter issues:</p>
+<ul>
+<li>Check the log file for error messages</li>
+<li>Review <a href="https://github.com/robertonetti/highentropyDCA/issues">GitHub Issues</a></li>
+<li>Contact: robertonetti3@gmail.com</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.annotate", "content.tabs.link"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

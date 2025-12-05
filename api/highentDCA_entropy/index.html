@@ -1,0 +1,2074 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../highentDCA_models.edDCA/">
+      
+      
+        <link rel="next" href="../..">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Entropy Computation - highentDCA & adabmDCApy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#entropy-computation-module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="highentDCA &amp; adabmDCApy" class="md-header__button md-logo" aria-label="highentDCA & adabmDCApy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            highentDCA & adabmDCApy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Entropy Computation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="highentDCA &amp; adabmDCApy" class="md-nav__button md-logo" aria-label="highentDCA & adabmDCApy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    highentDCA & adabmDCApy
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    highentDCA (Entropy Decimation)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    highentDCA (Entropy Decimation)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../highentDCA_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../highentDCA_installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../highentDCA_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_checkpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_models.edDCA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    edDCA Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entropy Computation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entropy Computation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compute_entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compute_entropy()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raises
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-equilibrate-at-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Equilibrate at θ=0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-equilibrate-at-_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Equilibrate at θ=θ_max
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-adjust-_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Adjust θ_max
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-thermodynamic-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Thermodynamic Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#log-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log File Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analyzing-entropy-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analyzing Entropy Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analyzing Entropy Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-log-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Log Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plotting-integration-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plotting Integration Progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-eddca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with edDCA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Tuning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fast-less-accurate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fast (Less Accurate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standard-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard (Default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High Accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#theoretical-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theoretical Background
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Theoretical Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thermodynamic-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thermodynamic Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numerical-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Numerical Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#low-target-sequence-percentage-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Low target sequence percentage (&lt;5%)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entropy-oscillates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entropy oscillates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    adabmDCA (Base Framework)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    adabmDCA (Base Framework)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input data and preprocessing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quicklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quicklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../script_arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compute_entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compute_entropy()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raises
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-equilibrate-at-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Equilibrate at θ=0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-equilibrate-at-_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Equilibrate at θ=θ_max
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-adjust-_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Adjust θ_max
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-thermodynamic-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Thermodynamic Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#log-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log File Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analyzing-entropy-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analyzing Entropy Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analyzing Entropy Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-log-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Log Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plotting-integration-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plotting Integration Progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-eddca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with edDCA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Tuning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fast-less-accurate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fast (Less Accurate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standard-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard (Default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High Accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#theoretical-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theoretical Background
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Theoretical Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thermodynamic-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thermodynamic Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequence-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numerical-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Numerical Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#low-target-sequence-percentage-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Low target sequence percentage (&lt;5%)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entropy-oscillates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entropy oscillates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="entropy-computation-module">Entropy Computation Module</h1>
+<p>The <code>highentDCA.scripts.entropy</code> module implements thermodynamic integration for computing model entropy.</p>
+<h2 id="overview">Overview</h2>
+<p>Model entropy is computed by integrating the average sequence identity with respect to a bias parameter θ that guides sampling towards a target sequence. This thermodynamic integration approach provides accurate entropy estimates for Boltzmann machines.</p>
+<h2 id="functions">Functions</h2>
+<h3 id="compute_entropy"><code>compute_entropy()</code></h3>
+<p>Compute the entropy of a DCA model using thermodynamic integration.</p>
+<pre><code class="language-python">from highentDCA.scripts.entropy import compute_entropy
+
+entropy = compute_entropy(
+    params: Dict[str, torch.Tensor],
+    path_targetseq: str,
+    sampler: Callable,
+    chains: torch.Tensor,
+    output: str,
+    label: str,
+    tokens: str,
+    nsweeps_zero: int = 100,
+    nsweeps_theta: int = 100,
+    theta_max: float = 5.0,
+    nsteps: int = 100,
+    nsweeps: int = 100,
+    device: str = &quot;cuda&quot;,
+    dtype: str = &quot;float32&quot;,
+) -&gt; float
+</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>params</strong> (<code>Dict[str, torch.Tensor]</code>): Model parameters</li>
+<li><code>"bias"</code>: Fields, shape <code>(L, q)</code></li>
+<li>
+<p><code>"coupling_matrix"</code>: Couplings, shape <code>(L, q, L, q)</code></p>
+</li>
+<li>
+<p><strong>path_targetseq</strong> (<code>str</code>): Path to FASTA file with target sequence</p>
+</li>
+<li>Must contain at least one sequence</li>
+<li>If multiple sequences, first one is used</li>
+<li>
+<p>Typically the wild-type or reference sequence</p>
+</li>
+<li>
+<p><strong>sampler</strong> (<code>Callable</code>): Sampling function</p>
+</li>
+<li>
+<p>Signature: <code>sampler(chains, params, nsweeps) -&gt; chains</code></p>
+</li>
+<li>
+<p><strong>chains</strong> (<code>torch.Tensor</code>): Initial Markov chains, shape <code>(n_chains, L, q)</code></p>
+</li>
+<li>
+<p><strong>output</strong> (<code>str</code>): Path to output directory for log files</p>
+</li>
+<li>
+<p><strong>label</strong> (<code>str</code>): Label for output files (e.g., density value)</p>
+</li>
+<li>
+<p>Creates: <code>density_{label}.log</code></p>
+</li>
+<li>
+<p><strong>tokens</strong> (<code>str</code>): Sequence alphabet (e.g., <code>"protein"</code>, <code>"rna"</code>)</p>
+</li>
+<li>
+<p><strong>nsweeps_zero</strong> (<code>int</code>): Sweeps for equilibration at θ=0 (default: 100)</p>
+</li>
+<li>
+<p><strong>nsweeps_theta</strong> (<code>int</code>): Sweeps for equilibration at θ=θ_max (default: 100)</p>
+</li>
+<li>
+<p><strong>theta_max</strong> (<code>float</code>): Initial maximum bias strength (default: 5.0)</p>
+</li>
+<li>
+<p>Automatically adjusted to achieve ~10% target sequences</p>
+</li>
+<li>
+<p><strong>nsteps</strong> (<code>int</code>): Number of integration steps (default: 100)</p>
+</li>
+<li>
+<p>More steps = more accurate (but slower)</p>
+</li>
+<li>
+<p><strong>nsweeps</strong> (<code>int</code>): Sweeps per integration step (default: 100)</p>
+</li>
+<li>
+<p><strong>device</strong> (<code>str</code>): Computation device (<code>"cuda"</code> or <code>"cpu"</code>)</p>
+</li>
+<li>
+<p><strong>dtype</strong> (<code>str</code>): Data type (<code>"float32"</code> or <code>"float64"</code>)</p>
+</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<ul>
+<li><code>float</code>: Computed entropy value</li>
+</ul>
+<h2 id="raises">Raises</h2>
+<ul>
+<li><code>FileNotFoundError</code>: If <code>path_targetseq</code> doesn't exist</li>
+<li><code>ValueError</code>: If <code>label</code> is <code>None</code></li>
+</ul>
+<h2 id="algorithm">Algorithm</h2>
+<p>The thermodynamic integration method computes entropy as:</p>
+<div class="arithmatex">\[S = E_0 - F(\theta_{\max})\]</div>
+<p>where:
+- <span class="arithmatex">\(E_0\)</span> = average energy at θ=0 (unbiased model)
+- <span class="arithmatex">\(F(\theta_{\max})\)</span> = free energy at θ=θ_max</p>
+<h3 id="step-1-equilibrate-at-0">Step 1: Equilibrate at θ=0</h3>
+<p>Sample from unbiased model:</p>
+<pre><code class="language-python">params_0 = params.copy()
+chains_0 = sampler(chains, params_0, nsweeps_zero)
+E_0 = mean(energy(chains_0, params_0))
+</code></pre>
+<h3 id="step-2-equilibrate-at-_max">Step 2: Equilibrate at θ=θ_max</h3>
+<p>Sample with bias towards target sequence:</p>
+<pre><code class="language-python">params_theta = params.copy()
+params_theta[&quot;bias&quot;] += theta_max * target_seq  # Add bias
+
+chains_theta = sampler(chains_theta, params_theta, nsweeps_theta)
+</code></pre>
+<h3 id="step-3-adjust-_max">Step 3: Adjust θ_max</h3>
+<p>Ensure ~10% of chains match target sequence:</p>
+<pre><code class="language-python">while p_target &lt; 0.1:
+    theta_max *= 1.01
+    params_theta[&quot;bias&quot;] = params[&quot;bias&quot;] + theta_max * target_seq
+    chains_theta = sampler(chains_theta, params_theta, 100)
+    p_target = fraction_matching_target(chains_theta)
+</code></pre>
+<h3 id="step-4-thermodynamic-integration">Step 4: Thermodynamic Integration</h3>
+<p>Integrate average sequence identity from θ=0 to θ_max:</p>
+<pre><code class="language-python">F = log(p_target) + mean(energy(chains_at_target, params_theta))
+
+for theta in linspace(0, theta_max, nsteps):
+    params_theta[&quot;bias&quot;] = params[&quot;bias&quot;] + theta * target_seq
+    chains = sampler(chains, params_theta, nsweeps)
+
+    seqID = sequence_identity(chains, target_seq)
+    F += integration_weight * mean(seqID)  # Trapezoidal rule
+
+S = E_0 - F
+</code></pre>
+<h2 id="complete-example">Complete Example</h2>
+<pre><code class="language-python">import torch
+from pathlib import Path
+from adabmDCA.io import load_params
+from adabmDCA.utils import init_chains
+from adabmDCA.sampling import get_sampler
+from highentDCA.scripts.entropy import compute_entropy
+
+# Load trained model
+params, tokens, L, q = load_params(&quot;results/params.dat&quot;)
+
+# Initialize chains
+device = torch.device(&quot;cuda&quot;)
+dtype = torch.float32
+chains = init_chains(
+    nchains=10000,
+    L=L,
+    q=q,
+    device=device,
+    dtype=dtype,
+)
+
+# Get sampler
+sampler = get_sampler(&quot;gibbs&quot;)
+
+# Create output directory
+output_dir = Path(&quot;results/entropy_analysis&quot;)
+output_dir.mkdir(parents=True, exist_ok=True)
+
+# Compute entropy
+print(&quot;Computing model entropy...&quot;)
+S = compute_entropy(
+    params=params,
+    path_targetseq=&quot;data/wildtype.fasta&quot;,
+    sampler=sampler,
+    chains=chains,
+    output=str(output_dir),
+    label=&quot;final_model&quot;,
+    tokens=tokens,
+    nsweeps_zero=200,
+    nsweeps_theta=200,
+    theta_max=5.0,
+    nsteps=200,
+    nsweeps=100,
+    device=&quot;cuda&quot;,
+    dtype=&quot;float32&quot;,
+)
+
+print(f&quot;Model entropy: {S:.4f}&quot;)
+print(f&quot;Log saved: {output_dir}/density_final_model.log&quot;)
+</code></pre>
+<h2 id="output-files">Output Files</h2>
+<p>The function creates a detailed log file: <code>density_{label}.log</code></p>
+<h3 id="log-file-format">Log File Format</h3>
+<pre><code>density:              final_model                                       
+nchains:              10000                                             
+nsweeps:              100                                               
+nsweeps  theta:       200                                               
+nsweeps zero:         200                                               
+nsteps:               200                                               
+data type:            float32                                           
+
+Epoch           Theta           Free Energy     Entropy         Time           
+0               0.000           50.123          125.456         0.000          
+1               0.025           50.145          125.434         1.234          
+2               0.050           50.178          125.401         2.456          
+...
+199             4.975           30.234          145.345         245.678        
+</code></pre>
+<h2 id="analyzing-entropy-results">Analyzing Entropy Results</h2>
+<h3 id="reading-log-files">Reading Log Files</h3>
+<pre><code class="language-python">import pandas as pd
+
+# Parse log file (skip header lines)
+df = pd.read_csv(
+    &quot;results/entropy_analysis/density_final_model.log&quot;,
+    sep=r'\s+',
+    skiprows=8,  # Skip configuration lines
+    names=[&quot;Epoch&quot;, &quot;Theta&quot;, &quot;Free_Energy&quot;, &quot;Entropy&quot;, &quot;Time&quot;],
+)
+
+print(f&quot;Final entropy: {df['Entropy'].iloc[-1]:.4f}&quot;)
+print(f&quot;Computation time: {df['Time'].iloc[-1]:.1f} seconds&quot;)
+</code></pre>
+<h3 id="plotting-integration-progress">Plotting Integration Progress</h3>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+
+# Free energy evolution
+axes[0].plot(df['Theta'], df['Free_Energy'], linewidth=2)
+axes[0].set_xlabel('θ')
+axes[0].set_ylabel('Free Energy F(θ)')
+axes[0].set_title('Free Energy Integration')
+axes[0].grid(True, alpha=0.3)
+
+# Entropy evolution
+axes[1].plot(df['Theta'], df['Entropy'], linewidth=2)
+axes[1].set_xlabel('θ')
+axes[1].set_ylabel('Entropy S(θ)')
+axes[1].set_title('Entropy Evolution')
+axes[1].grid(True, alpha=0.3)
+
+# Convergence check
+axes[2].plot(df['Epoch'], df['Entropy'], linewidth=2)
+axes[2].axhline(y=df['Entropy'].iloc[-1], color='r', linestyle='--', alpha=0.5)
+axes[2].set_xlabel('Integration Step')
+axes[2].set_ylabel('Entropy')
+axes[2].set_title('Integration Convergence')
+axes[2].grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('entropy_integration.png', dpi=300)
+plt.show()
+</code></pre>
+<h2 id="integration-with-eddca">Integration with edDCA</h2>
+<p>During edDCA training, entropy is computed at density checkpoints:</p>
+<pre><code class="language-python">from highentDCA.models.edDCA import fit
+
+# fit() automatically calls compute_entropy at checkpoints
+fit(
+    sampler=sampler,
+    chains=chains,
+    log_weights=log_weights,
+    fi_target=dataset.fi,
+    fij_target=dataset.fij,
+    params=params,
+    mask=mask,
+    lr=0.01,
+    nsweeps=10,
+    target_pearson=0.95,
+    target_density=0.02,
+    drate=0.01,
+    checkpoint=checkpoint,
+    args=args,  # Must contain entropy parameters
+)
+
+# Results saved in:
+# - output/entropy_decimation/density_0.980.log
+# - output/entropy_decimation/density_0.587.log
+# - etc.
+</code></pre>
+<h2 id="performance-tuning">Performance Tuning</h2>
+<h3 id="fast-less-accurate">Fast (Less Accurate)</h3>
+<pre><code class="language-python">S = compute_entropy(
+    ...,
+    nsweeps_zero=50,
+    nsweeps_theta=50,
+    nsteps=50,
+    nsweeps=50,
+)
+# ~10x faster, ±5% accuracy
+</code></pre>
+<h3 id="standard-default">Standard (Default)</h3>
+<pre><code class="language-python">S = compute_entropy(
+    ...,
+    nsweeps_zero=100,
+    nsweeps_theta=100,
+    nsteps=100,
+    nsweeps=100,
+)
+# Balanced speed/accuracy, ±2% accuracy
+</code></pre>
+<h3 id="high-accuracy">High Accuracy</h3>
+<pre><code class="language-python">S = compute_entropy(
+    ...,
+    nsweeps_zero=200,
+    nsweeps_theta=200,
+    nsteps=200,
+    nsweeps=200,
+)
+# ~4x slower, ±1% accuracy
+</code></pre>
+<h2 id="theoretical-background">Theoretical Background</h2>
+<h3 id="thermodynamic-integration">Thermodynamic Integration</h3>
+<p>The entropy of a Boltzmann machine is related to its partition function:</p>
+<div class="arithmatex">\[S = \langle E \rangle - F\]</div>
+<p>where <span class="arithmatex">\(F = -\log Z\)</span> is the free energy.</p>
+<p>By introducing a bias parameter θ:</p>
+<div class="arithmatex">\[H_\theta(\mathbf{s}) = H(\mathbf{s}) - \theta \sum_i s_i \cdot s_i^{\text{target}}\]</div>
+<p>We can compute:</p>
+<div class="arithmatex">\[F(\theta) = F(0) + \int_0^\theta \left\langle \sum_i s_i \cdot s_i^{\text{target}} \right\rangle_{\theta'} d\theta'\]</div>
+<h3 id="sequence-identity">Sequence Identity</h3>
+<p>The integrand is the average sequence identity:</p>
+<div class="arithmatex">\[\text{seqID}(\mathbf{s}) = \frac{1}{L} \sum_{i=1}^L \delta_{s_i, s_i^{\text{target}}}\]</div>
+<h3 id="numerical-integration">Numerical Integration</h3>
+<p>Trapezoidal rule:</p>
+<div class="arithmatex">\[\int_0^{\theta_{\max}} f(\theta) d\theta \approx \frac{\Delta\theta}{2} \left[ f(0) + 2\sum_{i=1}^{N-1} f(i\Delta\theta) + f(\theta_{\max}) \right]\]</div>
+<p>where <span class="arithmatex">\(\Delta\theta = \theta_{\max} / N\)</span>.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="low-target-sequence-percentage-5">Low target sequence percentage (&lt;5%)</h3>
+<p><strong>Solution</strong>: Increase <code>theta_max</code>:</p>
+<pre><code class="language-python">S = compute_entropy(..., theta_max=10.0)
+</code></pre>
+<h3 id="entropy-oscillates">Entropy oscillates</h3>
+<p><strong>Solution</strong>: Increase equilibration:</p>
+<pre><code class="language-python">S = compute_entropy(
+    ...,
+    nsweeps_zero=200,
+    nsweeps_theta=200,
+    nsweeps=200,
+)
+</code></pre>
+<h3 id="out-of-memory">Out of memory</h3>
+<p><strong>Solution</strong>: Reduce number of chains:</p>
+<pre><code class="language-python">chains = init_chains(5000, L, q)  # Instead of 10000
+</code></pre>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../highentDCA_models.edDCA/">edDCA Model</a> - Automatic entropy computation</li>
+<li><a href="https://spqb.github.io/adabmDCApy/api/statmech/">Statistical Mechanics</a> - Energy and partition function</li>
+<li><a href="https://doi.org/10.1103/PhysRevE.104.024407">Barrat-Charlaix et al., 2021</a> - Entropy decimation paper</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

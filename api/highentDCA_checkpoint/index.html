@@ -1,0 +1,1765 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../highentDCA_overview/">
+      
+      
+        <link rel="next" href="../highentDCA_training/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Checkpoint - highentDCA & adabmDCApy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#checkpoint-module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="highentDCA &amp; adabmDCApy" class="md-header__button md-logo" aria-label="highentDCA & adabmDCApy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            highentDCA & adabmDCApy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Checkpoint
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="highentDCA &amp; adabmDCApy" class="md-nav__button md-logo" aria-label="highentDCA & adabmDCApy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    highentDCA & adabmDCApy
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    highentDCA (Entropy Decimation)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    highentDCA (Entropy Decimation)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../highentDCA_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../highentDCA_installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../highentDCA_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkpoint-abstract-base-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint (Abstract Base Class)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checkpoint (Abstract Base Class)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#header_log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        header_log()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logrecord-dictstr-any" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        log(record: Dict[str, Any])
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkargs-kwargs-abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check(*args, **kwargs) (Abstract)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saveparams-mask-chains-log_weights-abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save(params, mask, chains, log_weights) (Abstract)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deccheckpoint-density-based-checkpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DecCheckpoint (Density-Based Checkpoint)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DecCheckpoint (Density-Based Checkpoint)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkdensity-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check(density: float)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saveparams-mask-chains-log_weights-density-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save(params, mask, chains, log_weights, density: float)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-usage-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Usage Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weights-biases-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weights &amp; Biases Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_models.edDCA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    edDCA Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entropy Computation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    adabmDCA (Base Framework)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    adabmDCA (Base Framework)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input data and preprocessing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quicklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quicklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../script_arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkpoint-abstract-base-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint (Abstract Base Class)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checkpoint (Abstract Base Class)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#header_log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        header_log()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logrecord-dictstr-any" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        log(record: Dict[str, Any])
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkargs-kwargs-abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check(*args, **kwargs) (Abstract)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saveparams-mask-chains-log_weights-abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save(params, mask, chains, log_weights) (Abstract)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deccheckpoint-density-based-checkpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DecCheckpoint (Density-Based Checkpoint)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DecCheckpoint (Density-Based Checkpoint)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checkdensity-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check(density: float)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saveparams-mask-chains-log_weights-density-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        save(params, mask, chains, log_weights, density: float)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-usage-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Usage Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weights-biases-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weights &amp; Biases Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="checkpoint-module">Checkpoint Module</h1>
+<p>The <code>highentDCA.checkpoint</code> module provides checkpoint strategies for saving model state during training.</p>
+<h2 id="overview">Overview</h2>
+<p>Checkpoints are essential for:
+- Saving model progress during long training runs
+- Creating snapshots at specific densities during decimation
+- Logging training metrics
+- Enabling training resumption after interruptions
+- Tracking experiments with Weights &amp; Biases</p>
+<h2 id="classes">Classes</h2>
+<h3 id="checkpoint-abstract-base-class"><code>Checkpoint</code> (Abstract Base Class)</h3>
+<p>Base class for all checkpoint strategies. Defines the interface that all checkpoint implementations must follow.</p>
+<pre><code class="language-python">from highentDCA.checkpoint import Checkpoint
+</code></pre>
+<h4 id="constructor">Constructor</h4>
+<pre><code class="language-python">Checkpoint(
+    file_paths: dict,
+    tokens: str,
+    args: dict,
+    params: Dict[str, torch.Tensor] | None = None,
+    chains: torch.Tensor | None = None,
+    use_wandb: bool = False,
+)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>file_paths</strong> (<code>dict</code>): Dictionary with file paths for saving outputs.</li>
+<li>Required keys: <code>"log"</code>, <code>"params"</code>, <code>"chains"</code></li>
+<li>
+<p>Values: <code>pathlib.Path</code> objects or strings</p>
+</li>
+<li>
+<p><strong>tokens</strong> (<code>str</code>): Alphabet for sequence encoding (e.g., <code>"protein"</code>, <code>"rna"</code>, or custom)</p>
+</li>
+<li>
+<p><strong>args</strong> (<code>dict</code>): Training configuration dictionary with keys:</p>
+</li>
+<li><code>"model"</code>: Model type (<code>"bmDCA"</code>, <code>"eaDCA"</code>, <code>"edDCA"</code>)</li>
+<li><code>"data"</code>: Path to input MSA</li>
+<li><code>"alphabet"</code>: Sequence alphabet</li>
+<li><code>"lr"</code>: Learning rate</li>
+<li><code>"nsweeps"</code>: Number of sweeps</li>
+<li><code>"target"</code>: Target Pearson correlation</li>
+<li>
+<p>Additional model-specific args</p>
+</li>
+<li>
+<p><strong>params</strong> (<code>Dict[str, torch.Tensor] | None</code>): Initial model parameters</p>
+</li>
+<li><code>"bias"</code>: Fields, shape <code>(L, q)</code></li>
+<li>
+<p><code>"coupling_matrix"</code>: Couplings, shape <code>(L, q, L, q)</code></p>
+</li>
+<li>
+<p><strong>chains</strong> (<code>torch.Tensor | None</code>): Initial Markov chains, shape <code>(n_chains, L, q)</code></p>
+</li>
+<li>
+<p><strong>use_wandb</strong> (<code>bool</code>): Enable Weights &amp; Biases logging (default: <code>False</code>)</p>
+</li>
+</ul>
+<h4 id="methods">Methods</h4>
+<h5 id="header_log"><code>header_log()</code></h5>
+<p>Write the header row to the log file.</p>
+<pre><code class="language-python">checkpoint.header_log()
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python">checkpoint = DecCheckpoint(...)
+checkpoint.header_log()
+# Writes: &quot;Epochs     Pearson    Entropy    Density    Time      &quot;
+</code></pre>
+<h5 id="logrecord-dictstr-any"><code>log(record: Dict[str, Any])</code></h5>
+<p>Log training metrics and append to log file.</p>
+<pre><code class="language-python">checkpoint.log(record: Dict[str, Any])
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>record</strong> (<code>Dict[str, Any]</code>): Metrics to log. Valid keys:</li>
+<li><code>"Epochs"</code>: Epoch number (int)</li>
+<li><code>"Pearson"</code>: Pearson correlation (float)</li>
+<li><code>"Entropy"</code>: Model entropy (float)</li>
+<li><code>"Density"</code>: Coupling density (float)</li>
+<li><code>"Time"</code>: Elapsed time in seconds (float)</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>ValueError</code>: If record contains unrecognized keys</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python">checkpoint.log({
+    &quot;Epochs&quot;: 100,
+    &quot;Pearson&quot;: 0.95,
+    &quot;Entropy&quot;: 120.5,
+    &quot;Density&quot;: 0.587,
+    &quot;Time&quot;: 125.3,
+})
+</code></pre>
+<h5 id="checkargs-kwargs-abstract"><code>check(*args, **kwargs)</code> (Abstract)</h5>
+<p>Check if a checkpoint condition is met. Must be implemented by subclasses.</p>
+<pre><code class="language-python">should_save = checkpoint.check(...)
+</code></pre>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><code>bool</code>: <code>True</code> if checkpoint should be saved, <code>False</code> otherwise</li>
+</ul>
+<h5 id="saveparams-mask-chains-log_weights-abstract"><code>save(params, mask, chains, log_weights)</code> (Abstract)</h5>
+<p>Save model state to disk. Must be implemented by subclasses.</p>
+<pre><code class="language-python">checkpoint.save(
+    params=params,
+    mask=mask,
+    chains=chains,
+    log_weights=log_weights,
+)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>params</strong> (<code>Dict[str, torch.Tensor]</code>): Model parameters</li>
+<li><strong>mask</strong> (<code>torch.Tensor</code>): Binary coupling mask, shape <code>(L, q, L, q)</code></li>
+<li><strong>chains</strong> (<code>torch.Tensor</code>): Markov chains, shape <code>(n_chains, L, q)</code></li>
+<li><strong>log_weights</strong> (<code>torch.Tensor</code>): AIS log-weights, shape <code>(n_chains,)</code></li>
+</ul>
+<hr />
+<h3 id="deccheckpoint-density-based-checkpoint"><code>DecCheckpoint</code> (Density-Based Checkpoint)</h3>
+<p>Checkpoint strategy based on coupling matrix density thresholds. Saves model state when density crosses predefined values.</p>
+<pre><code class="language-python">from highentDCA.checkpoint import DecCheckpoint
+</code></pre>
+<h4 id="constructor_1">Constructor</h4>
+<pre><code class="language-python">DecCheckpoint(
+    file_paths: dict,
+    tokens: str,
+    args: dict,
+    params: Dict[str, torch.Tensor] | None = None,
+    chains: torch.Tensor | None = None,
+    checkpt_steps: list[float] | None = None,
+    use_wandb: bool = False,
+    target_density: float | None = None,
+    n_steps: int = 10,
+    **kwargs,
+)
+</code></pre>
+<p><strong>Additional Parameters:</strong></p>
+<ul>
+<li><strong>checkpt_steps</strong> (<code>list[float] | None</code>): Custom density thresholds (e.g., <code>[0.9, 0.5, 0.2, 0.05]</code>)</li>
+<li>If <code>None</code>, generates <code>n_steps</code> geometrically-spaced values from <code>0.99</code> to <code>target_density</code></li>
+<li>
+<p>Values are automatically sorted in descending order</p>
+</li>
+<li>
+<p><strong>target_density</strong> (<code>float | None</code>): Final target density (used to generate checkpt_steps if None provided)</p>
+</li>
+<li>
+<p><strong>n_steps</strong> (<code>int</code>): Number of checkpoint steps to generate (default: 10)</p>
+</li>
+</ul>
+<p><strong>Automatic Checkpoint Generation:</strong></p>
+<p>If <code>checkpt_steps=None</code>, generates geometric sequence:</p>
+<div class="arithmatex">\[\rho_i = \rho_{\text{start}} \cdot \left(\frac{\rho_{\text{target}}}{\rho_{\text{start}}}\right)^{\frac{i}{N-1}}\]</div>
+<p>where <span class="arithmatex">\(\rho_{\text{start}} = 0.99\)</span>, <span class="arithmatex">\(\rho_{\text{target}}\)</span> = <code>target_density</code>, and <span class="arithmatex">\(N\)</span> = <code>n_steps</code>.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python">from pathlib import Path
+from highentDCA.checkpoint import DecCheckpoint
+
+checkpoint = DecCheckpoint(
+    file_paths={
+        &quot;log&quot;: Path(&quot;output/training.log&quot;),
+        &quot;params&quot;: Path(&quot;output/params.dat&quot;),
+        &quot;chains&quot;: Path(&quot;output/chains.fasta&quot;),
+    },
+    tokens=&quot;protein&quot;,
+    args={
+        &quot;model&quot;: &quot;edDCA&quot;,
+        &quot;data&quot;: &quot;data/alignment.fasta&quot;,
+        &quot;alphabet&quot;: &quot;protein&quot;,
+        &quot;lr&quot;: 0.01,
+        &quot;nsweeps&quot;: 10,
+        &quot;nsweeps_dec&quot;: 10,
+        &quot;target&quot;: 0.95,
+        &quot;density&quot;: 0.02,
+        &quot;drate&quot;: 0.01,
+        &quot;pseudocount&quot;: None,
+        &quot;dtype&quot;: &quot;float32&quot;,
+        &quot;label&quot;: None,
+        &quot;nepochs&quot;: 50000,
+        &quot;sampler&quot;: &quot;gibbs&quot;,
+        &quot;nchains&quot;: 10000,
+        &quot;seed&quot;: 42,
+    },
+    target_density=0.02,
+    n_steps=10,
+    use_wandb=False,
+)
+
+# Automatic checkpoints at:
+# [0.99, 0.82, 0.68, 0.56, 0.46, 0.38, 0.31, 0.26, 0.21, 0.02]
+</code></pre>
+<h4 id="methods_1">Methods</h4>
+<h5 id="checkdensity-float"><code>check(density: float)</code></h5>
+<p>Check if current density crossed a checkpoint threshold.</p>
+<pre><code class="language-python">should_save = checkpoint.check(density=0.35)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>density</strong> (<code>float</code>): Current coupling matrix density</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><code>bool</code>: <code>True</code> if density crossed a threshold, <code>False</code> otherwise</li>
+</ul>
+<p><strong>Behavior:</strong></p>
+<ul>
+<li>Automatically removes all passed thresholds</li>
+<li>Allows skipping intermediate checkpoints if density drops rapidly</li>
+<li>Returns <code>False</code> when all checkpoints exhausted</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python">checkpoint = DecCheckpoint(
+    ...,
+    checkpt_steps=[0.9, 0.5, 0.2, 0.05],
+)
+
+checkpoint.check(0.85)  # False (0.85 &gt; 0.9)
+checkpoint.check(0.60)  # True (crossed 0.9)
+checkpoint.check(0.45)  # True (crossed 0.5)
+checkpoint.check(0.18)  # True (crossed 0.2, skipped)
+checkpoint.check(0.03)  # True (crossed 0.05)
+checkpoint.check(0.02)  # False (all exhausted)
+</code></pre>
+<h5 id="saveparams-mask-chains-log_weights-density-float"><code>save(params, mask, chains, log_weights, density: float)</code></h5>
+<p>Save model state with density-labeled filenames.</p>
+<pre><code class="language-python">checkpoint.save(
+    params=params,
+    mask=mask,
+    chains=chains,
+    log_weights=log_weights,
+    density=0.35,
+)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>density</strong> (<code>float</code>): Current density (appended to filenames)</li>
+<li>Other parameters: Same as base <code>Checkpoint.save()</code></li>
+</ul>
+<p><strong>Output Files:</strong></p>
+<p>Creates two files with density labels:</p>
+<ul>
+<li><code>{stem}_density_{density:.3f}.dat</code> - Parameters file</li>
+<li><code>{stem}_density_{density:.3f}.fasta</code> - Chains file</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="language-python">checkpoint.save(
+    params=params,
+    mask=mask,
+    chains=chains,
+    log_weights=log_weights,
+    density=0.587,
+)
+
+# Creates:
+# - output/params_density_0.587.dat
+# - output/chains_density_0.587.fasta
+</code></pre>
+<h2 id="complete-usage-example">Complete Usage Example</h2>
+<pre><code class="language-python">import torch
+from pathlib import Path
+from adabmDCA.dataset import DatasetDCA
+from adabmDCA.utils import init_chains, init_parameters
+from adabmDCA.sampling import get_sampler
+from highentDCA.models.edDCA import fit
+from highentDCA.checkpoint import DecCheckpoint
+
+# Configuration
+device = torch.device(&quot;cuda&quot;)
+dtype = torch.float32
+
+# Load dataset
+dataset = DatasetDCA(
+    path_data=&quot;data/PF00072.fasta&quot;,
+    alphabet=&quot;protein&quot;,
+    device=device,
+    dtype=dtype,
+)
+
+# Initialize model
+params = init_parameters(L=dataset.L, q=dataset.q, device=device, dtype=dtype)
+chains = init_chains(10000, dataset.L, dataset.q, device=device, dtype=dtype)
+log_weights = torch.zeros(10000, device=device, dtype=dtype)
+sampler = get_sampler(&quot;gibbs&quot;)
+
+# Create output directory
+output_dir = Path(&quot;results/PF00072&quot;)
+output_dir.mkdir(parents=True, exist_ok=True)
+
+# Configure checkpoint with custom densities
+checkpoint = DecCheckpoint(
+    file_paths={
+        &quot;log&quot;: output_dir / &quot;training.log&quot;,
+        &quot;params&quot;: output_dir / &quot;params.dat&quot;,
+        &quot;chains&quot;: output_dir / &quot;chains.fasta&quot;,
+    },
+    tokens=dataset.tokens,
+    args={
+        &quot;model&quot;: &quot;edDCA&quot;,
+        &quot;data&quot;: &quot;data/PF00072.fasta&quot;,
+        &quot;alphabet&quot;: &quot;protein&quot;,
+        &quot;lr&quot;: 0.01,
+        &quot;nsweeps&quot;: 10,
+        &quot;nsweeps_dec&quot;: 10,
+        &quot;target&quot;: 0.95,
+        &quot;density&quot;: 0.02,
+        &quot;drate&quot;: 0.01,
+        &quot;pseudocount&quot;: None,
+        &quot;dtype&quot;: &quot;float32&quot;,
+        &quot;label&quot;: &quot;PF00072_edDCA&quot;,
+        &quot;nepochs&quot;: 50000,
+        &quot;sampler&quot;: &quot;gibbs&quot;,
+        &quot;nchains&quot;: 10000,
+        &quot;seed&quot;: 42,
+    },
+    checkpt_steps=[0.98, 0.80, 0.60, 0.40, 0.20, 0.10, 0.05, 0.02],
+    target_density=0.02,
+    use_wandb=False,
+)
+
+# Initialize log header
+checkpoint.header_log()
+
+# Train model with checkpoint
+mask = torch.ones(
+    dataset.L, dataset.q, dataset.L, dataset.q,
+    device=device, dtype=torch.bool
+)
+
+fit(
+    sampler=sampler,
+    chains=chains,
+    log_weights=log_weights,
+    fi_target=dataset.fi,
+    fij_target=dataset.fij,
+    params=params,
+    mask=mask,
+    lr=0.01,
+    nsweeps=10,
+    target_pearson=0.95,
+    target_density=0.02,
+    drate=0.01,
+    checkpoint=checkpoint,
+    args=checkpoint.args,
+)
+
+print(&quot;Training complete!&quot;)
+print(f&quot;Results saved in: {output_dir}&quot;)
+</code></pre>
+<h2 id="weights-biases-integration">Weights &amp; Biases Integration</h2>
+<p>Enable experiment tracking with W&amp;B:</p>
+<pre><code class="language-python">checkpoint = DecCheckpoint(
+    ...,
+    use_wandb=True,  # Enable W&amp;B
+)
+
+# Metrics automatically logged to W&amp;B:
+# - Epochs
+# - Pearson correlation
+# - Entropy
+# - Coupling density
+# - Training time
+</code></pre>
+<p><strong>Prerequisites:</strong></p>
+<pre><code class="language-bash">pip install wandb
+wandb login
+</code></pre>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="training.md">Training Module</a> - Training functions using checkpoints</li>
+<li><a href="models.edDCA.md">edDCA Model</a> - Model fitting with checkpoints</li>
+<li><a href="../../highentDCA_usage/">Usage Guide</a> - CLI checkpoint options</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

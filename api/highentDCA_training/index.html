@@ -1,0 +1,1714 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../highentDCA_checkpoint/">
+      
+      
+        <link rel="next" href="../highentDCA_models.edDCA/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Training - highentDCA & adabmDCApy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#training-module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="highentDCA &amp; adabmDCApy" class="md-header__button md-logo" aria-label="highentDCA & adabmDCApy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            highentDCA & adabmDCApy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Training
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="highentDCA &amp; adabmDCApy" class="md-nav__button md-logo" aria-label="highentDCA & adabmDCApy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    highentDCA & adabmDCApy
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    highentDCA (Entropy Decimation)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    highentDCA (Entropy Decimation)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../highentDCA_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../highentDCA_installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../highentDCA_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_checkpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#train_graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        train_graph()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-parameter-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Parameter Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-chain-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Chain Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-convergence-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Convergence Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-checkpointing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Checkpointing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-training-on-full-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Training on Full Graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-training-on-sparse-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Training on Sparse Graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-with-test-set-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: With Test Set Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-plotting-training-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Plotting Training History
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convergence-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convergence Criteria
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Optimization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Speed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_models.edDCA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    edDCA Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entropy Computation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    adabmDCA (Base Framework)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    adabmDCA (Base Framework)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input data and preprocessing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quicklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quicklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../script_arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#train_graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        train_graph()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-parameter-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Parameter Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-chain-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Chain Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-convergence-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Convergence Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-checkpointing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Checkpointing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-training-on-full-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Training on Full Graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-training-on-sparse-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Training on Sparse Graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-with-test-set-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: With Test Set Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-plotting-training-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Plotting Training History
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convergence-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convergence Criteria
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Optimization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Speed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="training-module">Training Module</h1>
+<p>The <code>highentDCA.training</code> module provides functions for training DCA models on sparse graphs.</p>
+<h2 id="functions">Functions</h2>
+<h3 id="train_graph"><code>train_graph()</code></h3>
+<p>Trains a DCA model on a fixed sparse graph using gradient descent until convergence.</p>
+<pre><code class="language-python">from highentDCA.training import train_graph
+
+chains, params, log_weights, history = train_graph(
+    sampler: Callable,
+    chains: torch.Tensor,
+    mask: torch.Tensor,
+    fi: torch.Tensor,
+    fij: torch.Tensor,
+    params: Dict[str, torch.Tensor],
+    nsweeps: int,
+    lr: float,
+    max_epochs: int,
+    target_pearson: float,
+    fi_test: torch.Tensor | None = None,
+    fij_test: torch.Tensor | None = None,
+    checkpoint: Checkpoint | None = None,
+    check_slope: bool = False,
+    log_weights: torch.Tensor | None = None,
+    progress_bar: bool = True,
+) -&gt; Tuple[torch.Tensor, Dict[str, torch.Tensor], torch.Tensor, Dict[str, List[float]]]
+</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><strong>sampler</strong> (<code>Callable</code>): Sampling function</li>
+<li>
+<p>Signature: <code>sampler(chains, params, nsweeps) -&gt; chains</code></p>
+</li>
+<li>
+<p><strong>chains</strong> (<code>torch.Tensor</code>): Markov chains, shape <code>(n_chains, L, q)</code></p>
+</li>
+<li>
+<p><strong>mask</strong> (<code>torch.Tensor</code>): Binary coupling mask, shape <code>(L, q, L, q)</code></p>
+</li>
+<li><code>mask[i,a,j,b] = 1</code>: coupling (i,a)-(j,b) is active</li>
+<li>
+<p><code>mask[i,a,j,b] = 0</code>: coupling is fixed to zero</p>
+</li>
+<li>
+<p><strong>fi</strong> (<code>torch.Tensor</code>): Single-point target frequencies, shape <code>(L, q)</code></p>
+</li>
+<li>
+<p><strong>fij</strong> (<code>torch.Tensor</code>): Two-point target frequencies, shape <code>(L, q, L, q)</code></p>
+</li>
+<li>
+<p><strong>params</strong> (<code>Dict[str, torch.Tensor]</code>): Model parameters</p>
+</li>
+<li><code>"bias"</code>: shape <code>(L, q)</code></li>
+<li>
+<p><code>"coupling_matrix"</code>: shape <code>(L, q, L, q)</code></p>
+</li>
+<li>
+<p><strong>nsweeps</strong> (<code>int</code>): MC sweeps per gradient update</p>
+</li>
+<li>
+<p><strong>lr</strong> (<code>float</code>): Learning rate</p>
+</li>
+<li>
+<p><strong>max_epochs</strong> (<code>int</code>): Maximum training epochs</p>
+</li>
+<li>
+<p><strong>target_pearson</strong> (<code>float</code>): Target Pearson correlation (0-1)</p>
+</li>
+<li>
+<p><strong>fi_test</strong> (<code>torch.Tensor | None</code>): Test set single-point frequencies (optional)</p>
+</li>
+<li>
+<p><strong>fij_test</strong> (<code>torch.Tensor | None</code>): Test set two-point frequencies (optional)</p>
+</li>
+<li>
+<p><strong>checkpoint</strong> (<code>Checkpoint | None</code>): Checkpoint object (optional)</p>
+</li>
+<li>
+<p><strong>check_slope</strong> (<code>bool</code>): Also check correlation slope ≈ 1.0 (default: <code>False</code>)</p>
+</li>
+<li>
+<p><strong>log_weights</strong> (<code>torch.Tensor | None</code>): AIS log-weights, shape <code>(n_chains,)</code> (optional)</p>
+</li>
+<li>
+<p><strong>progress_bar</strong> (<code>bool</code>): Show tqdm progress bar (default: <code>True</code>)</p>
+</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p><code>Tuple</code> containing:</p>
+<ol>
+<li><strong>chains</strong> (<code>torch.Tensor</code>): Updated chains, shape <code>(n_chains, L, q)</code></li>
+<li><strong>params</strong> (<code>Dict[str, torch.Tensor]</code>): Trained parameters</li>
+<li><strong>log_weights</strong> (<code>torch.Tensor</code>): Updated AIS weights, shape <code>(n_chains,)</code></li>
+<li><strong>history</strong> (<code>Dict[str, List[float]]</code>): Training history with keys:</li>
+<li><code>"epochs"</code>: List of epoch numbers</li>
+<li><code>"pearson"</code>: Pearson correlation at each epoch</li>
+<li><code>"slope"</code>: Correlation slope at each epoch</li>
+</ol>
+<h2 id="algorithm">Algorithm</h2>
+<p>The training process consists of:</p>
+<h3 id="1-parameter-update">1. Parameter Update</h3>
+<p>At each epoch, update parameters using gradient descent:</p>
+<pre><code class="language-python">from adabmDCA.training import update_params
+
+params = update_params(
+    fi=fi,
+    fij=fij,
+    pi=pi,  # Model marginals from chains
+    pij=pij,  # Model two-point marginals
+    params=params,
+    mask=mask,
+    lr=lr,
+)
+</code></pre>
+<p>Gradient: <span class="arithmatex">\(\Delta h_i^a = \eta (f_i^a - p_i^a)\)</span>, <span class="arithmatex">\(\Delta J_{ij}^{ab} = \eta (f_{ij}^{ab} - p_{ij}^{ab})\)</span></p>
+<p>where <span class="arithmatex">\(\eta\)</span> is the learning rate, <span class="arithmatex">\(f\)</span> are data frequencies, <span class="arithmatex">\(p\)</span> are model marginals.</p>
+<h3 id="2-chain-sampling">2. Chain Sampling</h3>
+<p>Update chains using MCMC:</p>
+<pre><code class="language-python">chains = sampler(chains=chains, params=params, nsweeps=nsweeps)
+</code></pre>
+<h3 id="3-convergence-check">3. Convergence Check</h3>
+<p>Check if target Pearson correlation reached:</p>
+<pre><code class="language-python">from adabmDCA.stats import get_correlation_two_points
+
+pearson, slope = get_correlation_two_points(
+    fij=fij, pij=pij, fi=fi, pi=pi
+)
+
+converged = (pearson &gt;= target_pearson)
+if check_slope:
+    converged &amp;= (abs(slope - 1.0) &lt; 0.1)
+</code></pre>
+<h3 id="4-checkpointing">4. Checkpointing</h3>
+<p>Periodically save model state:</p>
+<pre><code class="language-python">if checkpoint is not None and checkpoint.check(epochs, params, chains):
+    checkpoint.log({...})
+    checkpoint.save(params, mask, chains, log_weights)
+</code></pre>
+<h2 id="example-training-on-full-graph">Example: Training on Full Graph</h2>
+<pre><code class="language-python">import torch
+from adabmDCA.dataset import DatasetDCA
+from adabmDCA.utils import init_chains, init_parameters
+from adabmDCA.sampling import get_sampler
+from highentDCA.training import train_graph
+
+# Load data
+dataset = DatasetDCA(&quot;data/alignment.fasta&quot;, alphabet=&quot;protein&quot;)
+
+# Initialize
+params = init_parameters(dataset.L, dataset.q)
+chains = init_chains(10000, dataset.L, dataset.q)
+log_weights = torch.zeros(10000)
+sampler = get_sampler(&quot;gibbs&quot;)
+
+# Full coupling mask
+mask = torch.ones(dataset.L, dataset.q, dataset.L, dataset.q, dtype=torch.bool)
+
+# Train
+chains, params, log_weights, history = train_graph(
+    sampler=sampler,
+    chains=chains,
+    mask=mask,
+    fi=dataset.fi,
+    fij=dataset.fij,
+    params=params,
+    nsweeps=10,
+    lr=0.01,
+    max_epochs=10000,
+    target_pearson=0.95,
+)
+
+print(f&quot;Converged after {len(history['epochs'])} epochs&quot;)
+print(f&quot;Final Pearson: {history['pearson'][-1]:.4f}&quot;)
+</code></pre>
+<h2 id="example-training-on-sparse-graph">Example: Training on Sparse Graph</h2>
+<pre><code class="language-python">import torch
+from highentDCA.training import train_graph
+
+# Create sparse mask (e.g., from contact map or previous decimation)
+mask = torch.zeros(L, q, L, q, dtype=torch.bool)
+
+# Add specific interactions
+for (i, j) in contact_pairs:
+    mask[i, :, j, :] = True
+    mask[j, :, i, :] = True  # Symmetric
+
+print(f&quot;Mask density: {mask.float().mean():.4f}&quot;)
+
+# Train on this sparse graph
+chains, params, log_weights, history = train_graph(
+    sampler=sampler,
+    chains=chains,
+    mask=mask,
+    fi=dataset.fi,
+    fij=dataset.fij,
+    params=params,
+    nsweeps=10,
+    lr=0.01,
+    max_epochs=10000,
+    target_pearson=0.95,
+    log_weights=log_weights,
+)
+</code></pre>
+<h2 id="example-with-test-set-evaluation">Example: With Test Set Evaluation</h2>
+<pre><code class="language-python">from adabmDCA.dataset import DatasetDCA
+from highentDCA.training import train_graph
+
+# Load train and test data
+train_data = DatasetDCA(&quot;data/train.fasta&quot;, alphabet=&quot;protein&quot;)
+test_data = DatasetDCA(&quot;data/test.fasta&quot;, alphabet=&quot;protein&quot;)
+
+# Train with test set monitoring
+chains, params, log_weights, history = train_graph(
+    sampler=sampler,
+    chains=chains,
+    mask=mask,
+    fi=train_data.fi,
+    fij=train_data.fij,
+    fi_test=test_data.fi,
+    fij_test=test_data.fij,
+    params=params,
+    nsweeps=10,
+    lr=0.01,
+    max_epochs=10000,
+    target_pearson=0.95,
+)
+</code></pre>
+<h2 id="example-plotting-training-history">Example: Plotting Training History</h2>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+# Plot Pearson evolution
+fig, ax = plt.subplots(1, 2, figsize=(12, 4))
+
+ax[0].plot(history['epochs'], history['pearson'], linewidth=2)
+ax[0].axhline(y=0.95, color='r', linestyle='--', label='Target')
+ax[0].set_xlabel('Epochs')
+ax[0].set_ylabel('Pearson Correlation')
+ax[0].set_title('Convergence')
+ax[0].legend()
+ax[0].grid(True, alpha=0.3)
+
+ax[1].plot(history['epochs'], history['slope'], linewidth=2)
+ax[1].axhline(y=1.0, color='r', linestyle='--', label='Ideal')
+ax[1].set_xlabel('Epochs')
+ax[1].set_ylabel('Correlation Slope')
+ax[1].set_title('Slope Evolution')
+ax[1].legend()
+ax[1].grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('training_history.png', dpi=300)
+plt.show()
+</code></pre>
+<h2 id="convergence-criteria">Convergence Criteria</h2>
+<p>The <code>halt_condition</code> function determines when to stop training:</p>
+<pre><code class="language-python">def halt_condition(epochs, pearson, slope, check_slope):
+    c1 = pearson &lt; target_pearson
+    c2 = epochs &lt; max_epochs
+    if check_slope:
+        c3 = abs(slope - 1.0) &gt; 0.1
+    else:
+        c3 = False
+    return not c2 * ((not c1) * c3 + c1)
+</code></pre>
+<p>Training stops when:
+- Pearson ≥ <code>target_pearson</code> (AND slope ≈ 1.0 if <code>check_slope=True</code>)
+- OR <code>epochs</code> ≥ <code>max_epochs</code></p>
+<h2 id="performance-optimization">Performance Optimization</h2>
+<h3 id="gpu-memory">GPU Memory</h3>
+<p>Reduce memory usage:</p>
+<pre><code class="language-python"># Fewer chains
+chains = init_chains(5000, L, q)  # Instead of 10000
+
+# Lower precision
+dtype = torch.float32  # Instead of float64
+</code></pre>
+<h3 id="speed">Speed</h3>
+<p>Faster training:</p>
+<pre><code class="language-python"># Fewer sweeps (if convergence is stable)
+nsweeps = 5
+
+# Higher learning rate (if stable)
+lr = 0.02
+
+# Disable progress bar
+progress_bar = False
+</code></pre>
+<h3 id="accuracy">Accuracy</h3>
+<p>Better convergence:</p>
+<pre><code class="language-python"># More sweeps
+nsweeps = 20
+
+# Lower learning rate
+lr = 0.005
+
+# Stricter target
+target_pearson = 0.98
+check_slope = True
+</code></pre>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../highentDCA_models.edDCA/">edDCA Model</a> - Uses <code>train_graph</code> for decimation</li>
+<li><a href="../highentDCA_checkpoint/">Checkpoint Module</a> - Checkpoint strategies</li>
+<li><a href="https://spqb.github.io/adabmDCApy/api/training/">adabmDCA Training</a> - Base training functions</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

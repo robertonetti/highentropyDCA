@@ -1,0 +1,2021 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../highentDCA_index/">
+      
+      
+        <link rel="next" href="../highentDCA_usage/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Installation - highentDCA & adabmDCApy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installation-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="highentDCA &amp; adabmDCApy" class="md-header__button md-logo" aria-label="highentDCA & adabmDCApy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            highentDCA & adabmDCApy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Installation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="highentDCA &amp; adabmDCApy" class="md-nav__button md-logo" aria-label="highentDCA & adabmDCApy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    highentDCA & adabmDCApy
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    highentDCA (Entropy Decimation)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    highentDCA (Entropy Decimation)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-install-from-source-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Install from Source (Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-development-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: Development Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpu-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Support
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GPU Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuda-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CUDA Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu-only-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU-Only Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-adabmdca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing adabmDCA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing adabmDCA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-pypi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From PyPI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-command-not-found-highentdca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: command not found: highentDCA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-cuda-out-of-memory-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: CUDA out of memory errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-importerror-for-adabmdca-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: ImportError for adabmDCA modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-weights-biases-login-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Weights &amp; Biases login required
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#platform-specific-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform-Specific Notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform-Specific Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux (Docker)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verifying Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-check-cli-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Check CLI Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-test-python-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Test Python Import
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-a-quick-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run a Quick Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-highentdca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating highentDCA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstalling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uninstalling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highentDCA_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/highentDCA_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/highentDCA_checkpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/highentDCA_training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/highentDCA_models.edDCA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    edDCA Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/highentDCA_entropy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entropy Computation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    adabmDCA (Base Framework)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    adabmDCA (Base Framework)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input data and preprocessing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quicklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quicklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../script_arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-install-from-source-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Install from Source (Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-development-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: Development Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpu-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Support
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GPU Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuda-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CUDA Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu-only-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU-Only Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-adabmdca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing adabmDCA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing adabmDCA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-pypi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From PyPI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-command-not-found-highentdca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: command not found: highentDCA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-cuda-out-of-memory-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: CUDA out of memory errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-importerror-for-adabmdca-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: ImportError for adabmDCA modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-weights-biases-login-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Weights &amp; Biases login required
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#platform-specific-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform-Specific Notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform-Specific Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux (Docker)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verifying Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-check-cli-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Check CLI Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-test-python-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Test Python Import
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-a-quick-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run a Quick Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-highentdca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating highentDCA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstalling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uninstalling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="installation-guide">Installation Guide</h1>
+<p>This guide provides detailed instructions for installing highentDCA on your system.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before installing highentDCA, ensure you have the following prerequisites:</p>
+<h3 id="system-requirements">System Requirements</h3>
+<ul>
+<li><strong>Operating System</strong>: Linux, macOS, or Windows with WSL2</li>
+<li><strong>Python</strong>: Version 3.10 or higher</li>
+<li><strong>GPU</strong> (recommended): NVIDIA GPU with CUDA support for optimal performance</li>
+<li><strong>Memory</strong>: At least 8GB RAM (16GB+ recommended for large datasets)</li>
+</ul>
+<h3 id="python-environment">Python Environment</h3>
+<p>We strongly recommend using a virtual environment to avoid dependency conflicts:</p>
+<pre><code class="language-bash"># Using conda (recommended)
+conda create -n highentdca python=3.10
+conda activate highentdca
+
+# Or using venv
+python -m venv highentdca_env
+source highentdca_env/bin/activate  # On Windows: highentdca_env\Scripts\activate
+</code></pre>
+<h2 id="installation-methods">Installation Methods</h2>
+<h3 id="method-1-install-from-source-recommended">Method 1: Install from Source (Recommended)</h3>
+<p>This is currently the only installation method since the package is not yet on PyPI.</p>
+<ol>
+<li><strong>Clone the repository</strong>:</li>
+</ol>
+<pre><code class="language-bash">git clone https://github.com/robertonetti/highentropyDCA.git
+cd highentropyDCA
+</code></pre>
+<ol>
+<li><strong>Install the package</strong>:</li>
+</ol>
+<pre><code class="language-bash">pip install .
+</code></pre>
+<p>This will automatically install all required dependencies.</p>
+<ol>
+<li><strong>Verify installation</strong>:</li>
+</ol>
+<pre><code class="language-bash">highentDCA --help
+</code></pre>
+<p>You should see the help message with available commands.</p>
+<h3 id="method-2-development-installation">Method 2: Development Installation</h3>
+<p>If you plan to modify the code or contribute to the project:</p>
+<pre><code class="language-bash">git clone https://github.com/robertonetti/highentropyDCA.git
+cd highentropyDCA
+pip install -e .
+</code></pre>
+<p>The <code>-e</code> flag installs the package in "editable" mode, so changes to the source code are immediately reflected without reinstalling.</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>highentDCA requires the following packages, which are installed automatically:</p>
+<h3 id="core-dependencies">Core Dependencies</h3>
+<ul>
+<li><strong>adabmDCA</strong> (== 0.5.0): Base DCA framework with core algorithms</li>
+<li><strong>PyTorch</strong> (&gt;= 2.1.0): Deep learning framework for GPU acceleration</li>
+<li><strong>NumPy</strong> (&gt;= 1.26.4): Numerical computing library</li>
+<li><strong>Pandas</strong> (&gt;= 2.2.2): Data manipulation and analysis</li>
+</ul>
+<h3 id="additional-dependencies">Additional Dependencies</h3>
+<ul>
+<li><strong>Matplotlib</strong> (&gt;= 3.8.0): Plotting and visualization</li>
+<li><strong>tqdm</strong> (&gt;= 4.66.6): Progress bars for long-running operations</li>
+<li><strong>BioPython</strong> (&gt;= 1.85): Biological sequence file handling</li>
+<li><strong>wandb</strong> (&gt;= 0.12.0): Experiment tracking (optional, for <code>--wandb</code> flag)</li>
+</ul>
+<h2 id="gpu-support">GPU Support</h2>
+<h3 id="cuda-installation">CUDA Installation</h3>
+<p>For optimal performance, install PyTorch with CUDA support:</p>
+<ol>
+<li><strong>Check CUDA version</strong>:</li>
+</ol>
+<pre><code class="language-bash">nvidia-smi
+</code></pre>
+<p>Look for the CUDA version in the output (e.g., CUDA 11.8, 12.1).</p>
+<ol>
+<li><strong>Install PyTorch with CUDA</strong>:</li>
+</ol>
+<p>Visit <a href="https://pytorch.org/get-started/locally/">PyTorch's installation page</a> and select your configuration. For example:</p>
+<pre><code class="language-bash"># For CUDA 11.8
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# For CUDA 12.1
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+</code></pre>
+<ol>
+<li><strong>Verify GPU support</strong>:</li>
+</ol>
+<pre><code class="language-bash">python -c &quot;import torch; print(f'CUDA available: {torch.cuda.is_available()}')&quot;
+</code></pre>
+<p>Should output: <code>CUDA available: True</code></p>
+<h3 id="cpu-only-installation">CPU-Only Installation</h3>
+<p>If you don't have a GPU or prefer CPU-only execution:</p>
+<pre><code class="language-bash">pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+</code></pre>
+<p>Note: Training will be significantly slower on CPU.</p>
+<h2 id="installing-adabmdca">Installing adabmDCA</h2>
+<p>highentDCA depends on adabmDCA version 0.5.0. This will be installed automatically, but you can also install it manually:</p>
+<h3 id="from-pypi">From PyPI</h3>
+<pre><code class="language-bash">pip install adabmDCA==0.5.0
+</code></pre>
+<h3 id="from-source">From Source</h3>
+<pre><code class="language-bash">git clone https://github.com/spqb/adabmDCApy.git
+cd adabmDCApy
+git checkout v0.5.0  # Ensure correct version
+pip install .
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<h4 id="issue-command-not-found-highentdca">Issue: <code>command not found: highentDCA</code></h4>
+<p><strong>Solution</strong>: Ensure the installation directory is in your PATH:</p>
+<pre><code class="language-bash"># Check if pip bin directory is in PATH
+pip show highentDCA | grep Location
+</code></pre>
+<p>Add to PATH if needed:</p>
+<pre><code class="language-bash">export PATH=&quot;$HOME/.local/bin:$PATH&quot;  # Add to ~/.bashrc or ~/.zshrc
+</code></pre>
+<h4 id="issue-cuda-out-of-memory-errors">Issue: CUDA out of memory errors</h4>
+<p><strong>Solutions</strong>:
+- Reduce the number of chains: <code>--nchains 5000</code> (instead of default 10000)
+- Use smaller batch sizes for sampling
+- Monitor GPU memory: <code>nvidia-smi -l 1</code></p>
+<h4 id="issue-importerror-for-adabmdca-modules">Issue: ImportError for adabmDCA modules</h4>
+<p><strong>Solution</strong>: Ensure adabmDCA is correctly installed:</p>
+<pre><code class="language-bash">python -c &quot;import adabmDCA; print(adabmDCA.__version__)&quot;
+</code></pre>
+<p>Should output: <code>0.5.0</code></p>
+<p>If not, reinstall:</p>
+<pre><code class="language-bash">pip uninstall adabmDCA
+pip install adabmDCA==0.5.0
+</code></pre>
+<h4 id="issue-weights-biases-login-required">Issue: Weights &amp; Biases login required</h4>
+<p><strong>Solution</strong>: Initialize wandb (only needed if using <code>--wandb</code> flag):</p>
+<pre><code class="language-bash">wandb login
+</code></pre>
+<p>Enter your API key from <a href="https://wandb.ai">wandb.ai</a>.</p>
+<h3 id="platform-specific-notes">Platform-Specific Notes</h3>
+<h4 id="macos">macOS</h4>
+<p>On macOS with Apple Silicon (M1/M2/M3):</p>
+<pre><code class="language-bash"># Use conda for better compatibility
+conda create -n highentdca python=3.10
+conda activate highentdca
+conda install pytorch::pytorch -c pytorch
+pip install adabmDCA==0.5.0
+pip install .
+</code></pre>
+<p>Note: MPS (Metal Performance Shaders) acceleration is supported but may not be as optimized as CUDA.</p>
+<h4 id="windows">Windows</h4>
+<p>On Windows, use WSL2 (Windows Subsystem for Linux) for the best experience:</p>
+<ol>
+<li>Install WSL2 with Ubuntu</li>
+<li>Follow the Linux installation instructions inside WSL2</li>
+<li>For GPU support, install <a href="https://docs.nvidia.com/cuda/wsl-user-guide/index.html">CUDA on WSL2</a></li>
+</ol>
+<h4 id="linux-docker">Linux (Docker)</h4>
+<p>For a containerized environment:</p>
+<pre><code class="language-dockerfile">FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04
+
+RUN apt-get update &amp;&amp; apt-get install -y \
+    python3.10 \
+    python3-pip \
+    git
+
+RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+RUN git clone https://github.com/robertonetti/highentropyDCA.git &amp;&amp; \
+    cd highentropyDCA &amp;&amp; \
+    pip3 install .
+
+CMD [&quot;bash&quot;]
+</code></pre>
+<p>Build and run:</p>
+<pre><code class="language-bash">docker build -t highentdca .
+docker run --gpus all -it highentdca
+</code></pre>
+<h2 id="verifying-installation">Verifying Installation</h2>
+<p>After installation, verify everything works:</p>
+<h3 id="1-check-cli-access">1. Check CLI Access</h3>
+<pre><code class="language-bash">highentDCA train --help
+</code></pre>
+<p>Should display the training command help.</p>
+<h3 id="2-test-python-import">2. Test Python Import</h3>
+<pre><code class="language-python">import highentDCA
+from highentDCA.models.edDCA import fit
+from highentDCA.checkpoint import Checkpoint
+print(&quot;highentDCA successfully imported!&quot;)
+</code></pre>
+<h3 id="3-run-a-quick-test">3. Run a Quick Test</h3>
+<pre><code class="language-bash"># Download test data
+cd highentropyDCA/example_data
+
+# Train a small model
+highentDCA train \
+    --data TEST/chains.fasta \
+    --output test_output \
+    --model edDCA \
+    --density 0.98 \
+    --drate 0.01 \
+    --nchains 1000 \
+    --nepochs 100 \
+    --seed 42
+</code></pre>
+<p>This should complete without errors and create output in <code>test_output/</code>.</p>
+<h2 id="updating-highentdca">Updating highentDCA</h2>
+<p>To update to the latest version:</p>
+<pre><code class="language-bash">cd highentropyDCA
+git pull origin main  # or develop
+pip install --upgrade .
+</code></pre>
+<p>For development installations (<code>pip install -e .</code>), just pull the latest code:</p>
+<pre><code class="language-bash">git pull origin main
+</code></pre>
+<h2 id="uninstalling">Uninstalling</h2>
+<p>To remove highentDCA:</p>
+<pre><code class="language-bash">pip uninstall highentDCA
+</code></pre>
+<p>To also remove dependencies:</p>
+<pre><code class="language-bash">pip uninstall highentDCA adabmDCA torch numpy pandas matplotlib tqdm biopython wandb
+</code></pre>
+<h2 id="next-steps">Next Steps</h2>
+<p>Now that you have highentDCA installed:</p>
+<ol>
+<li><strong><a href="usage.md#quick-start">Quick Start</a></strong>: Train your first model</li>
+<li><strong><a href="usage.md">Usage Guide</a></strong>: Explore all features and options</li>
+<li><strong><a href="../api/">API Reference</a></strong>: Use highentDCA in Python scripts</li>
+<li><strong><a href="usage.md#examples">Examples</a></strong>: Learn from practical examples</li>
+</ol>
+<h2 id="getting-help">Getting Help</h2>
+<p>If you encounter issues not covered here:</p>
+<ul>
+<li>Check the <a href="https://github.com/robertonetti/highentropyDCA/issues">GitHub Issues</a></li>
+<li>Review the <a href="https://spqb.github.io/adabmDCApy/">adabmDCA documentation</a></li>
+<li>Contact: robertonetti3@gmail.com</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.annotate", "content.tabs.link"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
