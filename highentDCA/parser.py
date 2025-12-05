@@ -50,7 +50,7 @@ def add_args_checkpoint(parser: argparse.ArgumentParser) -> argparse.ArgumentPar
 def add_args_edDCA(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     eddca_args = parser.add_argument_group("edDCA arguments")
     
-    eddca_args.add_argument("--nsweeps_dec",      type=int,   default=10,           help="(Defaults to 50). Number of sweeps for each gradient estimation.")
+    eddca_args.add_argument("--nsweeps_dec",      type=int,   default=100,          help="(Defaults to 100). Number of sweeps for each gradient estimation.")
     eddca_args.add_argument("--density",          type=float, default=0.02,         help="(Defaults to 0.02). Target density to be reached.")
     eddca_args.add_argument("--drate",            type=float, default=0.01,         help="(Defaults to 0.01). Fraction of remaining couplings to be pruned at each decimation step.")
 
@@ -60,10 +60,10 @@ def add_args_edDCA(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
 def add_args_entropy(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     # Optional arguments
     parser.add_argument("--theta_max",          type=float,  default=5,            help="(Defaults to 5). Maximum integration strength") 
-    parser.add_argument("--nsteps",             type=int,    default=10,          help="(Defaults to 100). Number of integration steps.")
-    parser.add_argument("--nsweeps_step",       type=int,    default=10,           help="(Defaults to 100). Number of chain updates for each integration step.")
-    parser.add_argument("--nsweeps_theta",      type=int,    default=50,           help="(Defaults to 100). Number of chain updates to equilibrate chains at theta_max.")
-    parser.add_argument("--nsweeps_zero",       type=int,    default=50,           help="(Defaults to 100). Number of chain updates to equilibrate chains at theta=0.")
+    parser.add_argument("--nsteps",             type=int,    default=100,          help="(Defaults to 100). Number of integration steps.")
+    parser.add_argument("--nsweeps_step",       type=int,    default=250,          help="(Defaults to 250). Number of chain updates for each integration step.")
+    parser.add_argument("--nsweeps_theta",      type=int,    default=1000,         help="(Defaults to 1000). Number of chain updates to equilibrate chains at theta_max.")
+    parser.add_argument("--nsweeps_zero",       type=int,    default=5000,         help="(Defaults to 5000). Number of chain updates to equilibrate chains at theta=0.")
 
     return parser
 
