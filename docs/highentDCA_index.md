@@ -1,29 +1,28 @@
 # Welcome to highentDCA Documentation
 
-**highentDCA** is a specialized Python package for training **entropy-decimated Direct Coupling Analysis (edDCA)** models on biological sequence data. This package extends the powerful `adabmDCA` framework to enable efficient training of sparse Potts models while tracking their entropy evolution during the decimation process.
+**highentDCA** is a Python package for training entropy-decimated Direct Coupling Analysis (edDCA) models on biological sequence data. This package extends the `adabmDCA` framework to enable efficient training of sparse Potts models while tracking their entropy evolution during the decimation process.
 
 !!! info "About this Documentation"
     This documentation provides a comprehensive guide to using highentDCA for training sparse DCA models with entropy tracking. It complements the [adabmDCA documentation](https://spqb.github.io/adabmDCApy/) and focuses specifically on the entropy decimation features.
 
 ## What is highentDCA?
 
-highentDCA implements the **entropy-decimated DCA (edDCA)** algorithm, a method that:
+highentDCA implements the **entropy-decimation DCA** algorithm, which systematically reduces a fully-connected Potts model to a sparse network by iteratively pruning weak couplings, identifying the optimal sparsity level that maximizes model entropy while preserving predictive accuracy. This approach is particularly useful for:
 
-- **Progressively prunes** couplings from a fully-connected Boltzmann Machine (bmDCA)
-- **Maintains model accuracy** while reducing coupling density to target levels
-- **Computes entropy** at key decimation checkpoints using thermodynamic integration
-- **Provides insights** into the relationship between model complexity and information content
+- **Reducing computational complexity** by identifying essential interactions
+- **Maximizing model entropy** by tracking entropy changes throughout the decimation process
+- **Building interpretable sparse models** for biological sequence data
 
-This approach is particularly valuable for:
+Additionally, this method is valuable for:
 
 - Understanding which interactions are essential for capturing sequence statistics
 - Building interpretable sparse models for protein families
 - Studying the thermodynamics of statistical models
 - Reducing computational requirements for downstream applications
 
-## Core Features
+## Key Features
 
-### 🔬 Entropy Decimation (edDCA)
+### 🔬 Parameter Decimation DCA
 
 The main feature of highentDCA is the ability to train edDCA models that:
 
