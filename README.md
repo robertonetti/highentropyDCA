@@ -107,9 +107,9 @@ DCA_model/
 
 Comprehensive documentation is available in the `docs/` folder:
 
-- **[Installation Guide](docs/installation.md)**: Detailed installation instructions
-- **[Usage Guide](docs/usage.md)**: Complete CLI reference and examples
-- **[API Reference](docs/api/)**: Python API documentation
+- **[Installation Guide](docs/highentDCA_installation.md)**: Detailed installation instructions
+- **[Usage Guide](docs/highentDCA_usage.md)**: Complete CLI reference and examples
+- **[API Reference](docs/highentDCA_api/)**: Python API documentation
   - [Checkpoint Management](docs/api/checkpoint.md)
   - [Training Functions](docs/api/training.md)
   - [edDCA Model](docs/api/models.edDCA.md)
