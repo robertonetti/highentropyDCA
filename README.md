@@ -7,16 +7,15 @@
 
 ## Overview
 
-highentDCA implements the **entropy-decimated DCA (edDCA)** algorithm, which progressively prunes couplings from a fully-connected Boltzmann Machine (bmDCA) down to a sparse network while maintaining model accuracy. This approach is particularly useful for:
+highentDCA implements the **entropy-decimation DCA** algorithm, which systematically reduces a fully-connected Potts model to a sparse network by iteratively pruning weak couplings, identifying the optimal sparsity level that maximizes model entropy while preserving predictive accuracy. This approach is particularly useful for:
 
-- **Understanding structure-function relationships** in protein families
 - **Reducing computational complexity** by identifying essential interactions
-- **Tracking entropy changes** during model decimation for thermodynamic insights
+- **Maximizing model entropy** by tracking entropy changes throughout the decimation process
 - **Building interpretable sparse models** for biological sequence data
 
 ### Key Features
 
-- 🔬 **Entropy-decimated DCA (edDCA)**: Progressively sparse models with entropy tracking
+- 🔬 **Parameter decimation DCA**: Progressively sparse models with entropy tracking
 - 📊 **Thermodynamic Integration**: Compute model entropy at key decimation checkpoints
 - 🚀 **GPU-accelerated**: Efficient training leveraging PyTorch and CUDA
 - 💾 **Flexible checkpointing**: Save models at critical density thresholds
@@ -97,9 +96,9 @@ DCA_model/
 ├── chains.fasta               # Final Markov chains
 ├── adabmDCA_highent.log      # Training log with metrics
 ├── entropy_decimation/        # Checkpoints at key densities
-│   ├── density_0.980.fasta
-│   ├── density_0.587.fasta
-│   ├── density_0.359.fasta
+│   ├── density_<checkpoint1>.fasta
+│   ├── density_<checkpoint2>.fasta
+│   ├── density_<checkpoint3>.fasta
 │   └── ...
 └── entropy_values.txt         # Entropy vs. density data
 ```
@@ -119,7 +118,7 @@ Comprehensive documentation is available in the `docs/` folder:
 
 ## Core Concepts
 
-### Entropy-Decimated DCA (edDCA)
+### Entropy-Maximizing Parameter Decimation
 
 The edDCA algorithm works by:
 
@@ -127,7 +126,7 @@ The edDCA algorithm works by:
 2. **Iteratively decimating** the least important couplings based on two-point statistics
 3. **Re-equilibrating** the model after each decimation step
 4. **Computing entropy** at pre-defined density checkpoints using thermodynamic integration
-5. **Tracking the relationship** between model complexity (density) and information content (entropy)
+5. **Identifying the optimal sparsity** where model entropy is maximized while preserving statistical accuracy
 
 ### Thermodynamic Integration
 
@@ -174,24 +173,6 @@ The training progress will show:
 - Pearson correlation with data statistics
 - Entropy values at checkpoints
 
-### 4. Analyze results
-
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# Load entropy values
-entropy_data = pd.read_csv('results/PF00072_edDCA/entropy_values.txt', sep='\t')
-
-# Plot entropy vs. density
-plt.figure(figsize=(8, 6))
-plt.plot(entropy_data['Density'], entropy_data['Entropy'], 'o-')
-plt.xlabel('Coupling Density')
-plt.ylabel('Model Entropy')
-plt.title('Entropy Evolution during Decimation')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
 
 ## Advanced Usage
 
@@ -240,10 +221,11 @@ highentDCA train \
 If you use highentDCA in your research, please cite:
 
 ```bibtex
-@software{highentDCA2024,
-  author = {Netti, Roberto and Weigt, Martin},
-  title = {highentDCA: Entropy-decimated Direct Coupling Analysis},
-  year = {2024},
+@misc{highentDCA2025,
+  author = {Netti, Roberto and Calvanese, Francesco and Hinds, Emily and Ranganathan, Rama and Zamponi, Francesco and Weigt, Martin},
+  title = {highentDCA: Entropy-maximizing parameter decimation for Direct Coupling Analysis},
+  year = {2025},
+  note = {Manuscript in preparation},
   url = {https://github.com/robertonetti/highentropyDCA}
 }
 ```
@@ -251,6 +233,20 @@ If you use highentDCA in your research, please cite:
 And the related adabmDCA package:
 
 ```bibtex
+@Inbook{Rosset2026,
+  author="Rosset, Lorenzo and Netti, Roberto and Muntoni, Anna Paola and Weigt, Martin and Zamponi, Francesco",
+  editor="Khan, Shahid M. and Pazos, Florencio",
+  title="adabmDCA 2.0---A Flexible but Easy-to-Use Package for Direct Coupling Analysis",
+  bookTitle="Protein Evolution: Methods and Protocols",
+  year="2026",
+  publisher="Springer US",
+  address="New York, NY",
+  pages="83--104",
+  isbn="978-1-0716-4828-5",
+  doi="10.1007/978-1-0716-4828-5_6",
+  url="https://doi.org/10.1007/978-1-0716-4828-5_6"
+}
+
 @article{muntoni2021adabmDCA,
   title={adabmDCA: adaptive Boltzmann machine learning for biological sequences},
   author={Muntoni, Anna Paola and Pagnani, Andrea and Weigt, Martin and Zamponi, Francesco},
