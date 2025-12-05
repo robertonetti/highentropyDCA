@@ -104,20 +104,6 @@ DCA_model/
 └── entropy_values.txt         # Entropy vs. density data
 ```
 
-## Documentation
-
-📚 **[View the full documentation here](https://robertonetti.github.io/highentropyDCA/)** 📚
-
-The documentation includes:
-
-- **[Installation Guide](https://robertonetti.github.io/highentropyDCA/highentDCA_installation/)**: Detailed installation instructions
-- **[Usage Guide](https://robertonetti.github.io/highentropyDCA/highentDCA_usage/)**: Complete CLI reference and examples
-- **[API Reference](https://robertonetti.github.io/highentropyDCA/api/highentDCA_overview/)**: Python API documentation
-  - [Checkpoint Management](https://robertonetti.github.io/highentropyDCA/api/highentDCA_checkpoint/)
-  - [Training Functions](https://robertonetti.github.io/highentropyDCA/api/highentDCA_training/)
-  - [edDCA Model](https://robertonetti.github.io/highentropyDCA/api/highentDCA_models.edDCA/)
-  - [Entropy Computation](https://robertonetti.github.io/highentropyDCA/api/highentDCA_entropy/)
-
 ## Core Concepts
 
 ### Entropy-Maximizing Parameter Decimation
@@ -176,47 +162,10 @@ The training progress will show:
 - Entropy values at checkpoints
 
 
-## Advanced Usage
 
-### Custom Alphabet
 
-For non-standard sequences (e.g., custom amino acids):
 
-```bash
-highentDCA train --data mydata.fasta --alphabet "ACDEFGHIKLMNPQRSTVWYX"
-```
 
-### Sequence Reweighting
-
-Control phylogenetic bias with sequence clustering:
-
-```bash
-highentDCA train \
-    --data mydata.fasta \
-    --clustering_seqid 0.8  # Cluster sequences at 80% identity
-```
-
-### Integration with Weights & Biases
-
-Track experiments with W&B:
-
-```bash
-highentDCA train --data mydata.fasta --wandb
-```
-
-### Entropy Computation Parameters
-
-Fine-tune thermodynamic integration:
-
-```bash
-highentDCA train \
-    --data mydata.fasta \
-    --theta_max 5.0 \
-    --nsteps 100 \
-    --nsweeps_step 100 \
-    --nsweeps_theta 50 \
-    --nsweeps_zero 50
-```
 
 ## Citation
 
