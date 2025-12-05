@@ -18,20 +18,20 @@ def main():
     match COMMAND:
         case "train":
             SCRIPT = "train.py"
-        case "sample":
-            SCRIPT = "sample.py"
-        case "contacts":
-            SCRIPT = "contacts.py"
-        case "energies":
-            SCRIPT = "energies.py"
-        case "DMS":
-            SCRIPT = "dms.py"
-        case "entropy":
-            SCRIPT = "td_integration.py"
-        case "reintegrate":
-            SCRIPT = "reintegrate.py"
-        case "profmark":
-            SCRIPT = "profmark.py"
+        # case "sample":
+        #     SCRIPT = "sample.py"
+        # case "contacts":
+        #     SCRIPT = "contacts.py"
+        # case "energies":
+        #     SCRIPT = "energies.py"
+        # case "DMS":
+        #     SCRIPT = "dms.py"
+        # case "entropy":
+        #     SCRIPT = "td_integration.py"
+        # case "reintegrate":
+        #     SCRIPT = "reintegrate.py"
+        # case "profmark":
+        #     SCRIPT = "profmark.py"
         case _:
             print(f"Error: Invalid command '{COMMAND}'. Use 'train', 'sample', 'contacts', 'energies', 'entropy', 'reintegrate', 'DMS' or 'profmark'.")
             sys.exit(1)
