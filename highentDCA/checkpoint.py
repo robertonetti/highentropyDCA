@@ -254,7 +254,7 @@ class DecCheckpoint(Checkpoint):
         checkpt_steps: list[float] | None = None,
         use_wandb: bool = False,
         target_density: float | None = None,
-        n_steps: int = 10,
+        n_steps: int = 20,
         **kwargs,
     ):
         """Initialize the DecCheckpoint class.
