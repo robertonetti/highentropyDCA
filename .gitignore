@@ -168,7 +168,6 @@ notebooks/
 Pipfile
 Pipfile.lock
 wandb/
-models/
 DCA_model/
 run.sh
 run_test.sh
