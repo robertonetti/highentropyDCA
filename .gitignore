@@ -172,3 +172,4 @@ DCA_model/
 run.sh
 run_test.sh
 nohup.out
+plot_entropy
