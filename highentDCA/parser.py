@@ -52,7 +52,7 @@ def add_args_edDCA(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     
     eddca_args.add_argument("--nsweeps_dec",      type=int,   default=100,          help="(Defaults to 100). Number of sweeps for each gradient estimation.")
     eddca_args.add_argument("--density",          type=float, default=0.02,         help="(Defaults to 0.02). Target density to be reached.")
-    eddca_args.add_argument("--drate",            type=float, default=0.01,         help="(Defaults to 0.01). Fraction of remaining couplings to be pruned at each decimation step.")
+    eddca_args.add_argument("--drate",            type=float, default=0.001,         help="(Defaults to 0.01). Fraction of remaining couplings to be pruned at each decimation step.")
 
     return parser
 
