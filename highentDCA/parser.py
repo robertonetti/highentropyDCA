@@ -64,7 +64,7 @@ def add_args_entropy(parser: argparse.ArgumentParser) -> argparse.ArgumentParser
     parser.add_argument("--nsweeps_step",       type=int,    default=250,          help="(Defaults to 250). Number of chain updates for each integration step.")
     parser.add_argument("--nsweeps_theta",      type=int,    default=1000,         help="(Defaults to 1000). Number of chain updates to equilibrate chains at theta_max.")
     parser.add_argument("--nsweeps_zero",       type=int,    default=5000,         help="(Defaults to 5000). Number of chain updates to equilibrate chains at theta=0.")
-    parser.add_argument("--checkpt_steps",      type=int,    default=None,         help="(Defaults to None). List of steps at which to save intermediate checkpoints during training. If None, no checkpoints are saved.")
+    parser.add_argument("--checkpt_steps",      type=str,    default=None,         help="(Defaults to None). Space-separated list of density thresholds at which to save checkpoints (e.g., '0.9 0.8 0.5'). If None, automatic geometric steps are generated.")
 
     return parser
 

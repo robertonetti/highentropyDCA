@@ -43,6 +43,10 @@ def main():
     parser = create_parser()
     args = parser.parse_args()
     
+    # Convert checkpt_steps from string to list of floats
+    if args.checkpt_steps is not None:
+        args.checkpt_steps = [float(x) for x in args.checkpt_steps.split()]
+    
     print("\n" + "="*70)
     print(f"  TRAINING {args.model.upper()} MODEL")
     print("="*70 + "\n")
