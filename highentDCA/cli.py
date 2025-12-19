@@ -39,8 +39,10 @@ def main():
     # Run the corresponding Python script with the remaining optional arguments
     REPO_SCRIPTS = os.path.join(SCRIPT_DIR, "scripts")
     script_path = os.path.join(REPO_SCRIPTS, SCRIPT)
+    # Preserve the current working directory to ensure relative paths work correctly
     proc = subprocess.call(
         [sys.executable, script_path] + sys.argv[2:],
+        cwd=os.getcwd()
     )
 
 if __name__ == "__main__":

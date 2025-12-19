@@ -98,6 +98,7 @@ def fit(
         args=args,
         params=params,
         chains=chains,
+        checkpt_steps=args.checkpt_steps,
         max_epochs=args.nepochs,
         target_acc_rate=args.target_acc_rate,
         use_wandb=args.wandb,
