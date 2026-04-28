@@ -1,5 +1,4 @@
 from pathlib import Path
-import importlib
 import argparse
 
 import numpy as np
@@ -15,6 +14,10 @@ from adabmDCA.functional import one_hot
 from adabmDCA.checkpoint import get_checkpoint
 
 from highentDCA.parser import add_args_train
+from highentDCA.models import edDCA
+
+
+MODEL_NAME = "edDCA"
 
 
 def create_parser():
@@ -39,12 +42,17 @@ def main():
     - Configures the sampler and checkpoint strategy
     - Executes the training procedure
     """
-    # Load parser, training dataset and DCA model
+    # Load parser and training dataset
     parser = create_parser()
     args = parser.parse_args()
+    args.model = MODEL_NAME
+    
+    # Convert checkpt_steps from string to list of floats
+    if args.checkpt_steps is not None:
+        args.checkpt_steps = [float(x) for x in args.checkpt_steps.split()]
     
     print("\n" + "="*70)
-    print(f"  TRAINING {args.model.upper()} MODEL")
+    print(f"  TRAINING {MODEL_NAME.upper()} MODEL")
     print("="*70 + "\n")
     
     # Set the device and data type
@@ -127,8 +135,6 @@ def main():
         fi_test = None
         fij_test = None
     
-    # Load the DCA model module
-    DCA_model = importlib.import_module(f"highentDCA.models.{args.model}")
     tokens = get_tokens(args.alphabet)
     
     # Save the weights if not already provided
@@ -167,14 +173,10 @@ def main():
         mask[torch.nonzero(params["coupling_matrix"])] = 1
     else:
         params = init_parameters(fi=fi_target)
-        
-        if args.model in ["bmDCA", "edDCA"]:
-            # Fully connected mask (excluding self-interactions)
-            mask = torch.ones(size=(L, q, L, q), dtype=torch.bool, device=device)
-            mask[torch.arange(L), :, torch.arange(L), :] = 0
-        else:
-            # Empty mask (for sparse models)
-            mask = torch.zeros(size=(L, q, L, q), device=device, dtype=torch.bool)
+
+        # edDCA starts from a fully connected graph and progressively decimates it.
+        mask = torch.ones(size=(L, q, L, q), dtype=torch.bool, device=device)
+        mask[torch.arange(L), :, torch.arange(L), :] = 0
     
     # Initialize or load Markov chains
     if args.path_chains:
@@ -208,7 +210,7 @@ def main():
     )
     
     # Execute training
-    DCA_model.fit(
+    edDCA.fit(
         sampler=sampler,
         fij_target=fij_target,
         fi_target=fi_target,

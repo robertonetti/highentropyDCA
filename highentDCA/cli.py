@@ -8,7 +8,7 @@ def main():
 
     # Check if the first positional argument is provided
     if len(sys.argv) < 2:
-        print("Error: No command provided. Use 'train', 'sample', 'contacts', 'energies', 'entropy', 'reintegrate', 'DMS' or 'profmark'.")
+        print("Error: No command provided. Use 'train'.")
         sys.exit(1)
 
     # Assign the first positional argument to a variable
@@ -18,29 +18,17 @@ def main():
     match COMMAND:
         case "train":
             SCRIPT = "train.py"
-        # case "sample":
-        #     SCRIPT = "sample.py"
-        # case "contacts":
-        #     SCRIPT = "contacts.py"
-        # case "energies":
-        #     SCRIPT = "energies.py"
-        # case "DMS":
-        #     SCRIPT = "dms.py"
-        # case "entropy":
-        #     SCRIPT = "td_integration.py"
-        # case "reintegrate":
-        #     SCRIPT = "reintegrate.py"
-        # case "profmark":
-        #     SCRIPT = "profmark.py"
         case _:
-            print(f"Error: Invalid command '{COMMAND}'. Use 'train', 'sample', 'contacts', 'energies', 'entropy', 'reintegrate', 'DMS' or 'profmark'.")
+            print(f"Error: Invalid command '{COMMAND}'. Use 'train'.")
             sys.exit(1)
 
     # Run the corresponding Python script with the remaining optional arguments
     REPO_SCRIPTS = os.path.join(SCRIPT_DIR, "scripts")
     script_path = os.path.join(REPO_SCRIPTS, SCRIPT)
+    # Preserve the current working directory to ensure relative paths work correctly
     proc = subprocess.call(
         [sys.executable, script_path] + sys.argv[2:],
+        cwd=os.getcwd()
     )
 
 if __name__ == "__main__":
