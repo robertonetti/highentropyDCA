@@ -111,10 +111,17 @@ highentDCA train \
 In this mode, `highentDCA` uses the supplied fully connected bmDCA model as the
 starting point and begins the edDCA decimation trajectory from that state.
 
+The repository ships the input alignments `example_data/PF00014_mgap6.fasta`,
+`example_data/CM_130530_MC.fasta`, and `example_data/RF00379.fasta`. The
+pre-trained dense bmDCA parameter and chain files used in the first example are
+not distributed with the repository because of their size; they can be produced
+by running the MSA-only workflow described below, or obtained from the archived
+release record.
+
 If a dense bmDCA model is not available, the only required input is the MSA:
 
 ```bash
-highentDCA train --data example_data/PF00072.fasta
+highentDCA train --data example_data/PF00014_mgap6.fasta
 ```
 
 The code then initializes a fully connected model, trains it to the target
@@ -124,8 +131,8 @@ Carlo settings:
 
 ```bash
 highentDCA train \
-    --data example_data/PF00072.fasta \
-    --output results/PF00072_edDCA \
+    --data example_data/PF00014_mgap6.fasta \
+    --output results/PF00014_edDCA \
     --alphabet protein \
     --target 0.95 \
     --density 0.02 \
@@ -179,7 +186,7 @@ highentDCA train \
 A typical run produces:
 
 ```text
-results/PF00072_edDCA/
+results/PF00014_edDCA/
 ├── params.dat
 ├── chains.fasta
 ├── weights.dat

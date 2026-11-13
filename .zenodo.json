@@ -1,0 +1,39 @@
+{
+  "title": "highentDCA: entropy-based decimation for maximum-entropy Direct Coupling Analysis models",
+  "description": "<p>Python implementation of the entropy-based decimation procedure used to identify maximum-entropy Direct Coupling Analysis models (meDCA) along a sparse Potts-model training trajectory. The command-line interface exposes a single training workflow, <code>highentDCA train</code>, which runs the edDCA decimation procedure: it starts from a fully connected bmDCA model, progressively removes the least statistically significant couplings, estimates the model entropy by thermodynamic integration at prescribed coupling-density checkpoints, and stores the resulting trajectory. The package builds on adabmDCA for Boltzmann-machine training, Monte Carlo sampling, and model I/O.</p>",
+  "license": "Apache-2.0",
+  "upload_type": "software",
+  "version": "1.0.0",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Netti, Roberto",
+      "affiliation": "Sorbonne Universite, CNRS, Laboratoire de Biologie Computationnelle et Quantitative - LCQB, Paris, France"
+    },
+    {
+      "name": "Weigt, Martin",
+      "affiliation": "Sorbonne Universite, CNRS, Laboratoire de Biologie Computationnelle et Quantitative - LCQB, Paris, France"
+    }
+  ],
+  "keywords": [
+    "direct coupling analysis",
+    "Potts model",
+    "Boltzmann machine",
+    "protein sequences",
+    "generative models",
+    "entropy",
+    "sparse models"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/robertonetti/highentropyDCA",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.1007/978-1-0716-4828-5_6",
+      "relation": "isBasedOn",
+      "scheme": "doi"
+    }
+  ]
+}

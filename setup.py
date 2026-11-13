@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='highentDCA',
-    version='0.0',
+    version='1.0.0',
     author='Roberto Netti, Martin Weigt',
     maintainer='Roberto Netti',
     author_email='robertonetti3@gmail.com',

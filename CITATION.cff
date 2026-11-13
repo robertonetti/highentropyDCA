@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "highentDCA: entropy-based decimation for maximum-entropy Direct Coupling Analysis models"
+abstract: >-
+  Python implementation of the entropy-based decimation procedure used to
+  identify maximum-entropy Direct Coupling Analysis models (meDCA) along a
+  sparse Potts-model training trajectory. Built on adabmDCA for
+  Boltzmann-machine training, Monte Carlo sampling, and model I/O.
+type: software
+version: 1.0.0
+date-released: "2026-11-13"
+license: Apache-2.0
+repository-code: "https://github.com/robertonetti/highentropyDCA"
+url: "https://robertonetti.github.io/highentropyDCA/"
+keywords:
+  - direct coupling analysis
+  - Potts model
+  - Boltzmann machine
+  - protein sequences
+  - generative models
+  - entropy
+authors:
+  - family-names: Netti
+    given-names: Roberto
+    affiliation: "Sorbonne Université, CNRS, Laboratoire de Biologie Computationnelle et Quantitative - LCQB, Paris, France"
+  - family-names: Weigt
+    given-names: Martin
+    affiliation: "Sorbonne Université, CNRS, Laboratoire de Biologie Computationnelle et Quantitative - LCQB, Paris, France"
+references:
+  - type: article
+    title: "Sparse generative models of protein sequences sample larger spaces at comparable experimental success rates"
+    year: 2026
+    authors:
+      - family-names: Netti
+        given-names: Roberto
+      - family-names: Hinds
+        given-names: Emily
+      - family-names: Calvanese
+        given-names: Francesco
+      - family-names: Ranganathan
+        given-names: Rama
+      - family-names: Weigt
+        given-names: Martin
+      - family-names: Zamponi
+        given-names: Francesco
