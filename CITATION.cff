@@ -7,8 +7,8 @@ abstract: >-
   sparse Potts-model training trajectory. Built on adabmDCA for
   Boltzmann-machine training, Monte Carlo sampling, and model I/O.
 type: software
-version: 1.0.0
-date-released: "2026-11-13"
+version: 1.0.1
+date-released: "2026-11-22"
 license: Apache-2.0
 repository-code: "https://github.com/robertonetti/highentropyDCA"
 url: "https://robertonetti.github.io/highentropyDCA/"

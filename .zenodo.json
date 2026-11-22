@@ -3,7 +3,7 @@
   "description": "<p>Python implementation of the entropy-based decimation procedure used to identify maximum-entropy Direct Coupling Analysis models (meDCA) along a sparse Potts-model training trajectory. The command-line interface exposes a single training workflow, <code>highentDCA train</code>, which runs the edDCA decimation procedure: it starts from a fully connected bmDCA model, progressively removes the least statistically significant couplings, estimates the model entropy by thermodynamic integration at prescribed coupling-density checkpoints, and stores the resulting trajectory. The package builds on adabmDCA for Boltzmann-machine training, Monte Carlo sampling, and model I/O.</p>",
   "license": "apache-2.0",
   "upload_type": "software",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "language": "eng",
   "creators": [
     {

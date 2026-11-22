@@ -139,7 +139,7 @@ def compute_entropy(
     int_step = nsteps
     F_max = np.log(p_wt) + torch.mean(compute_energy(chains_theta[seqID == L], params_theta))
     thetas = torch.linspace(0, theta_max, int_step)
-    factor = theta_max / (2 * int_step)
+    factor = theta_max / (2 * (int_step - 1))
     F, S, integral = F_max, 0, 0
     torch.set_printoptions(precision=2)
     time_start = time.time()
